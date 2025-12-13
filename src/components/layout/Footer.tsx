@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
         width: "100%",
         py: "120px",
         backgroundColor: "#101112",
-        position: "sticky",
+
         bottom: 0,
         zIndex: 0,
       }}
