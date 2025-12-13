@@ -10,9 +10,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Layout>
-          <AppRoutes />
-        </Layout>
+        <AppRoutes />
       </BrowserRouter>
     </ThemeProvider>
   );
