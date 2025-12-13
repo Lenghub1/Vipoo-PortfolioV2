@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Container, Typography, Link } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import type { Project } from "../../types/project.types";
 import type { Contact } from "../../types/contact.types";
+import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 // Example contact data
 
 interface FooterProps {
@@ -14,13 +15,21 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
     <Box
       component="footer"
       sx={{
-        py: 6,
-        px: { xs: 2, md: 6 },
-        borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-        mt: 8,
+        width: "100%",
+        py: "120px",
+        backgroundColor: "#101112",
+        position: "sticky",
+        bottom: 0,
+        zIndex: 0,
       }}
     >
-      <Container maxWidth="lg">
+      <Box
+        sx={{
+          width: "100%",
+          maxWidth: `${CONTENT_MAX_WIDTH}px`,
+          mx: "auto",
+        }}
+      >
         <Box
           sx={{
             display: "grid",
@@ -30,14 +39,20 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
           }}
         >
           <Box sx={{ width: { xs: "100%", md: "453px" } }}>
-            <Typography variant="h6" sx={{ mb: 2, fontSize: "1rem" }}>
+            <Typography
+              variant="h6"
+              sx={{
+                mb: "24px",
+                fontSize: "20px",
+                fontFamily: "serifStack",
+              }}
+            >
               Product
             </Typography>
 
             {projects?.map((project) => (
-              <Box display="flex" gap={1}>
+              <Box key={project.id} display="flex" gap={1}>
                 <Typography
-                  key={project.id}
                   variant="body2"
                   sx={{ color: "text.secondary", mb: 1, cursor: "pointer" }}
                 >
@@ -60,13 +75,20 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
               justifyContent: "space-between",
-              alignItems: { xs: "flex-start", md: "center" },
+              alignItems: "start",
               gap: { xs: 2, md: 0 },
               width: { xs: "100%", md: "453px" },
             }}
           >
             <Box>
-              <Typography variant="h6" sx={{ mb: 2, fontSize: "1rem" }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: "24px",
+                  fontSize: "20px",
+                  fontFamily: "serifStack",
+                }}
+              >
                 Contact
               </Typography>
 
@@ -90,7 +112,7 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
             />
           </Box>
         </Box>
-      </Container>
+      </Box>
     </Box>
   );
 };

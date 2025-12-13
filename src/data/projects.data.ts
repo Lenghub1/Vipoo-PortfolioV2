@@ -9,7 +9,7 @@ export const projects: Project[] = [
     date: "Jan 01, 2026",
     description:
       "System that unifies all merchant profiles such as Bill payment, Mex-map, Silverleaf, & Omnichannel into one streamlined platform.",
-    image: "/projects/central.png",
+    image: "/projects/centralize/centralize.webp",
     badge: "UNLOCK SOON",
     color: "#2a2a2a",
     details: {
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     date: "Jan 01, 2026",
     description:
       "A ground-up redesign, crafted for users of all ages, combining accessibility, personalization, and ergonomic design.",
-    image: "/projects/smart.png",
+    image: "/projects/smartnas/smartnas.webp",
     color: "#1a4d2e",
     details: {
       role: "Lead Designer",
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     date: "Jan 01, 2026",
     description:
       "A platform for transparency, public awareness, and historical record of the ECCC's judicial process.",
-    image: "/projects/ecc.png",
+    image: "/projects/eccc/eccc.webp",
     color: "#1e3a5f",
     details: {
       role: "Web Designer",
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     date: "Jan 01, 2026",
     description:
       "System that unifies all merchant profiles such as Bill payment, Mex-map, Silverleaf, & Omnichannel into one streamlined platform.",
-    image: "/projects/filelog.png",
+    image: "/projects/filelog/filelog.webp",
     color: "#4a1a4a",
     details: {
       role: "UX/UI Designer",
