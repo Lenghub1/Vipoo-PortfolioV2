@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { projects } from "../../data/projects.data";
 import { contacts } from "../../data/contacts.data";
-import { CONTENT_MAX_WIDTH } from "../../theme/layout";
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -40,18 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           },
         }}
       >
-        <Box
-          component="main"
-          sx={{
-            width: "100%",
-            maxWidth: `${CONTENT_MAX_WIDTH}px`,
-            mx: "auto",
-            minHeight: "100vh",
-            pb: "120px",
-          }}
-        >
-          {children}
-        </Box>
+        {children}
       </Box>
       <Footer projects={projects} contacts={contacts} />
     </Box>
