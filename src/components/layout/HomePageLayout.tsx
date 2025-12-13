@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 
 interface MainContentProps {
@@ -18,7 +18,7 @@ const HomePageLayout: React.FC<MainContentProps> = ({ children }) => {
         pb: "120px",
       }}
     >
-      {children}
+      <Container>{children}</Container>
     </Box>
   );
 };
