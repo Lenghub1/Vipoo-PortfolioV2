@@ -1,6 +1,6 @@
 import React from "react";
 import ProjectDetailTemplate, {
-  ProjectDetailComponentProps,
+  type ProjectDetailComponentProps,
 } from "./ProjectDetailTemplate";
 
 const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
