@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import { projects } from "../../data/projects.data";
@@ -19,7 +19,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         flexDirection: "column",
       }}
     >
-      <Header />
+      <Container>
+        <Header />
+      </Container>
+
       <Box
         sx={{
           flex: 1,
@@ -42,7 +45,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       >
         {children}
       </Box>
-      <Footer projects={projects} contacts={contacts} />
+      <Container>
+        <Footer projects={projects} contacts={contacts} />
+      </Container>
     </Box>
   );
 };

@@ -93,9 +93,9 @@ export const projects: Project[] = [
 ];
 
 export const clients = [
-  { name: "ministry", logo: "company/ministry.svg" },
+  { name: "ministry", logo: "company/mef.svg" },
   { name: "aba", logo: "company/aba.svg" },
   { name: "smart", logo: "company/smart.svg" },
-  { name: "melonagency", logo: "company/melonagency.svg" },
+  { name: "melonagency", logo: "company/mra.svg" },
   { name: "edemy", logo: "company/edemy.svg" },
 ];

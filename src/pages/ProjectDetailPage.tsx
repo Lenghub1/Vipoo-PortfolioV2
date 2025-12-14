@@ -25,9 +25,7 @@ const ProjectDetailPage: React.FC = () => {
     );
   }
 
-  const relatedProjects = projects
-    .filter((p) => p.id !== id)
-    .slice(0, 2);
+  const relatedProjects = projects.filter((p) => p.id !== id).slice(0, 2);
 
   const componentMap: Record<string, React.FC<ProjectDetailComponentProps>> = {
     smartnas: ProjectDetailSmartnas,
@@ -35,8 +33,7 @@ const ProjectDetailPage: React.FC = () => {
     filelog: ProjectDetailFilelog,
   };
 
-  const DetailComponent =
-    componentMap[project.id] ?? ProjectDetailDefault;
+  const DetailComponent = componentMap[project.id] ?? ProjectDetailDefault;
 
   return (
     <DetailComponent

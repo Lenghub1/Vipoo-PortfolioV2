@@ -6,6 +6,7 @@ import type { Project } from "../types/project.types";
 export interface ProjectDetailComponentProps {
   project: Project;
   onBack: () => void;
+  allowBack?: boolean;
   relatedProjects: Project[];
 }
 
@@ -20,6 +21,7 @@ const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
   relatedProjects,
   maxWidth,
   bannerSrc,
+  allowBack,
 }) => {
   const heroSrc = bannerSrc ?? project.image;
 
@@ -45,16 +47,18 @@ const ProjectDetailTemplate: React.FC<ProjectDetailTemplateProps> = ({
           px: { xs: 2, md: 0 },
         }}
       >
-        <Button
-          onClick={onBack}
-          sx={{
-            mb: 4,
-            color: "text.secondary",
-            "&:hover": { color: "white" },
-          }}
-        >
-          ← Back
-        </Button>
+        {allowBack && (
+          <Button
+            onClick={onBack}
+            sx={{
+              mb: 4,
+              color: "text.secondary",
+              "&:hover": { color: "white" },
+            }}
+          >
+            ← Back
+          </Button>
+        )}
 
         <Typography
           variant="h1"
