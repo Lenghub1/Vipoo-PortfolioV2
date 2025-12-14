@@ -17,6 +17,7 @@ const Header: React.FC = () => {
         top: 0,
         bgcolor: "background.default",
         zIndex: 1000,
+        px: { xs: "24px", md: 0 },
       }}
     >
       <Box

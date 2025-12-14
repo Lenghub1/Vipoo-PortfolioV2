@@ -16,9 +16,10 @@ const HomePageLayout: React.FC<MainContentProps> = ({ children }) => {
         mx: "auto",
         minHeight: "100vh",
         pb: "120px",
+        px: { xs: "24px", md: 0 },
       }}
     >
-      <Container>{children}</Container>
+      {children}
     </Box>
   );
 };

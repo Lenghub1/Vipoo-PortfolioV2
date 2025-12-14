@@ -19,9 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         flexDirection: "column",
       }}
     >
-      <Container>
-        <Header />
-      </Container>
+      <Header />
 
       <Box
         sx={{

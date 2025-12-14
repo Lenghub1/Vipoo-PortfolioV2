@@ -6,7 +6,7 @@ const HeroSection: React.FC = () => {
   const duplicatedClients = [...clients, ...clients];
 
   return (
-    <Box sx={{ py: { xs: 8, md: 12 }, px: { xs: 2, md: 6 } }}>
+    <Box sx={{ py: { xs: 8, md: 12 } }}>
       <Typography
         variant="h1"
         sx={{
@@ -34,6 +34,25 @@ const HeroSection: React.FC = () => {
           mb: 6,
           position: "relative",
           height: { xs: "60px", md: "80px" },
+          "&::before, &::after": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            width: { xs: "40px", md: "80px" },
+            zIndex: 1,
+            pointerEvents: "none",
+          },
+          "&::before": {
+            left: 0,
+            background:
+              "linear-gradient(90deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
+          },
+          "&::after": {
+            right: 0,
+            background:
+              "linear-gradient(270deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
+          },
         }}
       >
         <Box
@@ -62,7 +81,7 @@ const HeroSection: React.FC = () => {
                 objectFit: "contain",
                 opacity: 0.6,
                 filter: "grayscale(100%)",
-                mx: { xs: 1.5, md: 3 },
+                mx: { xs: 3, md: 5 },
                 transition: "0.3s ease",
                 verticalAlign: "middle",
                 "&:hover": {
