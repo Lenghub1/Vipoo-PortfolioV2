@@ -45,9 +45,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       >
         {children}
       </Box>
-      <Container>
-        <Footer projects={projects} contacts={contacts} />
-      </Container>
+
+      <Footer projects={projects} contacts={contacts} />
     </Box>
   );
 };
