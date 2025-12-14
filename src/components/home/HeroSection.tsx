@@ -1,54 +1,70 @@
 import React from "react";
-import { Box, Container, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { clients } from "../../data/projects.data";
 
 const HeroSection: React.FC = () => {
+  const duplicatedClients = [...clients, ...clients];
+
   return (
     <Box sx={{ py: { xs: 8, md: 12 }, px: { xs: 2, md: 6 } }}>
-      <Container>
-        <Typography
-          variant="h1"
-          sx={{
-            mb: 3,
-            fontSize: { xs: "2.5rem", md: "3.5rem" },
-          }}
-        >
-          This is viphou.
-        </Typography>
-        <Typography
-          sx={{
-            mb: 4,
+      <Typography
+        variant="h1"
+        sx={{
+          mb: 3,
+          fontSize: { xs: "2.5rem", md: "3.5rem" },
+        }}
+      >
+        This is viphou.
+      </Typography>
+      <Typography
+        sx={{
+          mb: 4,
+          fontSize: "19px",
+          color: "text.secondary",
+        }}
+      >
+        He design and build digital products that connect clarity with craft &
+        the belief it's one of the most malleable mediums we have.
+      </Typography>
 
-            fontSize: "19px",
-            color: "text.secondary",
-          }}
-        >
-          He design and build digital products that connect clarity with craft &
-          the belief it's one of the most malleable mediums we have.
-        </Typography>
-
+      <Box
+        sx={{
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          mb: 6,
+          position: "relative",
+          height: { xs: "60px", md: "80px" },
+        }}
+      >
         <Box
           sx={{
-            display: "flex",
-            gap: { xs: 2, md: "102px" },
-            flexWrap: "wrap",
-            mb: 6,
-            justifyContent: "center",
-            alignItems: "center",
+            display: "inline-block",
+            animation: "scrollClients 20s linear infinite",
+            "&:hover": {
+              animationPlayState: "paused",
+            },
+            "@keyframes scrollClients": {
+              "0%": { transform: "translateX(0)" },
+              "100%": { transform: "translateX(-50%)" },
+            },
           }}
         >
-          {clients.map((client, index) => (
+          {duplicatedClients.map((client, index) => (
             <Box
               key={index}
               component="img"
               src={client.logo}
               alt={client.name}
               sx={{
-                width: { xs: 70, md: 100 },
-                height: "auto",
+                display: "inline-block",
+                height: "100%",
+                maxWidth: "120px",
+                objectFit: "contain",
                 opacity: 0.6,
                 filter: "grayscale(100%)",
+                mx: { xs: 1.5, md: 3 },
                 transition: "0.3s ease",
+                verticalAlign: "middle",
                 "&:hover": {
                   opacity: 1,
                   filter: "grayscale(0%)",
@@ -57,33 +73,33 @@ const HeroSection: React.FC = () => {
             />
           ))}
         </Box>
+      </Box>
 
-        <Button
-          variant="contained"
-          sx={{
-            bgcolor: "primary.main",
-            color: "black",
-            px: 4,
-            py: 1.5,
-            fontWeight: 600,
-            fontSize: "1rem",
-            display: "flex",
-            alignItems: "center",
-            gap: 1.5,
-            "&:hover": {
-              bgcolor: "#ffc940",
-            },
-          }}
-        >
-          <Box
-            component="img"
-            src="hello/hi5.svg"
-            alt="Hi5"
-            sx={{ width: "18.54px", height: "18.54px" }}
-          />
-          Get in touch
-        </Button>
-      </Container>
+      <Button
+        variant="contained"
+        sx={{
+          bgcolor: "primary.main",
+          color: "black",
+          px: 4,
+          py: 1.5,
+          fontWeight: 600,
+          fontSize: "1rem",
+          display: "flex",
+          alignItems: "center",
+          gap: 1.5,
+          "&:hover": {
+            bgcolor: "#ffc940",
+          },
+        }}
+      >
+        <Box
+          component="img"
+          src="hello/hi5.svg"
+          alt="Hi5"
+          sx={{ width: "18.54px", height: "18.54px" }}
+        />
+        Get in touch
+      </Button>
     </Box>
   );
 };

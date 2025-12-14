@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { navigationLinks } from "../../routes/routes.config";
+import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -10,101 +11,121 @@ const Header: React.FC = () => {
     <Box
       component="header"
       sx={{
-        py: 3,
-        px: { xs: 2, md: 6 },
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        width: "100%",
+        height: "64px",
         position: "sticky",
         top: 0,
         bgcolor: "background.default",
         zIndex: 1000,
       }}
     >
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Box
-            sx={{
-              width: 12,
-              height: 12,
-              borderRadius: "50%",
-              bgcolor: "primary.main",
-            }}
-          />
-          <Typography
-            variant="h6"
-            sx={{
-              color: "white",
-              fontWeight: 600,
-              fontFamily: '"Inter", sans-serif',
-            }}
-          >
-            Viphou
-          </Typography>
-        </Box>
-      </Link>
-
-      <Box sx={{ display: { xs: "none", md: "flex" }, gap: 4 }}>
-        {navigationLinks.map((link) => {
-          const isActive = location.pathname === link.path;
-
-          return (
-            <Link
-              key={link.path}
-              to={link.path}
-              style={{ textDecoration: "none" }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                  color: isActive ? "white" : "text.secondary",
-                  cursor: "pointer",
-                  transition: "color 0.2s ease",
-                  "&:hover": {
-                    color: "white",
-                    "& img": {
-                      opacity: 1,
-                    },
-                  },
-                }}
-              >
-                <Typography variant="body1">{link.label}</Typography>
-
-                {link.icon && (
-                  <Box
-                    component="img"
-                    src={link.icon}
-                    alt="icon"
-                    sx={{
-                      width: 16,
-                      height: 16,
-                      opacity: isActive ? 1 : 0.5,
-                      transition: "opacity 0.2s ease",
-                    }}
-                  />
-                )}
-              </Box>
-            </Link>
-          );
-        })}
-      </Box>
-
-      <Button
-        variant="contained"
+      <Box
         sx={{
-          bgcolor: "white",
-          color: "black",
-          px: 3,
-          fontWeight: 600,
-          "&:hover": {
-            bgcolor: "#ffc940",
-          },
+          width: "100%",
+          maxWidth: `${CONTENT_MAX_WIDTH}px`,
+          height: "100%",
+          mx: "auto",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        Get in touch
-      </Button>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box
+              component="img"
+              src="/hello/viphoulogo.svg"
+              alt="Viphou logo"
+              sx={{
+                width: "auto",
+                height: "20px",
+
+                transition: "opacity 0.3s ease-out, filter 0.3s ease-out",
+                flexShrink: 0,
+                "&:hover": {
+                  opacity: 1,
+                  filter: "grayscale(0%)",
+                },
+              }}
+              loading="lazy"
+            />
+            <Typography
+              sx={{
+                color: "white",
+                fontSize: "18px",
+                fontWeight: 600,
+              }}
+            >
+              Viphou
+            </Typography>
+          </Box>
+        </Link>
+
+        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 4 }}>
+          {navigationLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                style={{ textDecoration: "none" }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    color: isActive ? "white" : "text.secondary",
+                    cursor: "pointer",
+                    transition: "color 0.2s ease",
+                    "&:hover": {
+                      color: "white",
+                      "& img": {
+                        opacity: 1,
+                      },
+                    },
+                  }}
+                >
+                  <Typography sx={{ fontSize: "13px" }}>
+                    {link.label}
+                  </Typography>
+
+                  {link.icon && (
+                    <Box
+                      component="img"
+                      src={link.icon}
+                      alt="icon"
+                      sx={{
+                        width: 16,
+                        height: 16,
+                        opacity: isActive ? 1 : 0.5,
+                        transition: "opacity 0.2s ease",
+                      }}
+                    />
+                  )}
+                </Box>
+              </Link>
+            );
+          })}
+        </Box>
+
+        <Button
+          variant="contained"
+          sx={{
+            bgcolor: "white",
+            color: "black",
+            fontSize: "13px",
+            px: "12px",
+            fontWeight: 600,
+            "&:hover": {
+              bgcolor: "#ffc940",
+            },
+          }}
+        >
+          Get in touch
+        </Button>
+      </Box>
     </Box>
   );
 };

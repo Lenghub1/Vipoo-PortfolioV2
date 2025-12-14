@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Box,
-  Typography,
-  Chip,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import type { Project } from "../../types/project.types";
 
@@ -16,69 +9,119 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const navigate = useNavigate();
+  const [isHovered, setIsHovered] = React.useState(false);
 
   return (
-    <Card
-      onClick={() => navigate(`/project/${project.id}`)}
+    <Box
+      component="article"
+      onClick={() => {
+        if (project.active === false) return;
+        navigate(`/project/${project.id}`);
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       sx={{
-        bgcolor: project.color,
-        cursor: "pointer",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        "&:hover": {
-          transform: "translateY(-8px)",
-          boxShadow: "0 12px 24px rgba(0,0,0,0.3)",
-        },
-        borderRadius: 2,
-        overflow: "hidden",
+        cursor: project.active === false ? "not-allowed" : "pointer",
+        overflow: "visible",
       }}
     >
-      <CardMedia
-        component="img"
-        height="300"
-        image={project.image}
-        alt={project.title}
+      <Box
         sx={{
-          objectFit: "cover",
+          position: "relative",
+          borderRadius: "8px",
+          overflow: "hidden",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: "-12px",
+            borderRadius: "16px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            pointerEvents: "none",
+          },
         }}
-      />
-      <CardContent sx={{ p: 3 }}>
+      >
+        <Box
+          component="img"
+          src={project.image}
+          alt={project.title}
+          sx={{
+            width: "100%",
+            display: "block",
+            objectFit: "cover",
+            transition: "transform 0.4s cubic-bezier(.215,.61,.355,1)",
+            transform:
+              project.active === false || !isHovered
+                ? "scale(1)"
+                : "scale(1.04)",
+            transformOrigin: "center",
+          }}
+          className="project-card__image"
+          loading="lazy"
+        />
+      </Box>
+      <Box sx={{ mt: "16px" }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: 1,
-            mb: 1,
+            gap: "8px",
+            mb: "8px",
             flexWrap: "wrap",
+            color: "text.secondary",
           }}
         >
-          <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            {project.client}
+          <Typography variant="caption">{project.client}</Typography>
+          <Typography variant="caption" component="span">
+            ·
           </Typography>
-          <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            · {project.date}
-          </Typography>
+          <Typography variant="caption">{project.date}</Typography>
           {project.badge && (
-            <Chip
-              label={project.badge}
-              size="small"
-              sx={{
-                bgcolor: "primary.main",
-                color: "black",
-                fontWeight: 600,
-                fontSize: "0.7rem",
-                height: "20px",
-              }}
-            />
+            <>
+              <Typography variant="caption" component="span">
+                ·
+              </Typography>
+              <Box
+                component="span"
+                sx={{
+                  bgcolor: "rgba(253, 181, 21, 0.2)",
+                  color: "primary.main",
+                  fontWeight: 600,
+                  fontSize: "12px",
+                  fontWidth: "SemiBold",
+                  lineHeight: "19px",
+                  height: "19px",
+                  px: "6px",
+                  borderRadius: "4px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                {project.badge}
+              </Box>
+            </>
           )}
         </Box>
-        <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
+        <Typography
+          component="h3"
+          sx={{
+            fontSize: "23px",
+            lineHeight: "32px",
+            fontWeight: 600,
+
+            mb: "8px",
+            transition: "transform 0.4s cubic-bezier(.215,.61,.355,1)",
+            opacity: project.active === false || !isHovered ? "75%" : "100%",
+          }}
+        >
           {project.title}
         </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography
+          sx={{ fontSize: "14px", lineHeight: "21px", color: "text.secondary" }}
+        >
           {project.description}
         </Typography>
-      </CardContent>
-    </Card>
+      </Box>
+    </Box>
   );
 };
 
