@@ -1,5 +1,23 @@
 import { createTheme } from "@mui/material/styles";
 
+declare module "@mui/material/styles" {
+  interface TypographyVariants {
+    caption1: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    caption1?: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    caption1: true;
+  }
+}
+const serifStack = '"Instrument Serif", "Playfair Display", "Georgia", serif';
+const sansStack = '"Open Runde", "Inter", "Helvetica", sans-serif';
+
 export const theme = createTheme({
   palette: {
     mode: "dark",
@@ -16,24 +34,46 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Playfair Display", "Georgia", serif',
+    fontFamily: sansStack,
     h1: {
-      fontSize: "3.5rem",
+      fontFamily: serifStack,
+      fontSize: "64px",
       fontWeight: 400,
-      lineHeight: 1.2,
+      lineHeight: "64px",
+      letterSpacing: "-2%",
     },
     h2: {
+      fontFamily: serifStack,
       fontSize: "2.5rem",
       fontWeight: 400,
     },
+    h3: {
+      fontFamily: serifStack,
+      fontSize: "23px",
+      lineHeight: "32px",
+      fontWeight: 500,
+    },
     h4: {
+      fontFamily: serifStack,
       fontSize: "1.75rem",
       fontWeight: 600,
     },
     body1: {
-      fontFamily: '"Inter", "Helvetica", sans-serif',
-      fontSize: "1rem",
-      lineHeight: 1.7,
+      fontFamily: sansStack,
+      fontSize: "17px",
+      lineHeight: "26px",
+    },
+    body2: {
+      fontFamily: sansStack,
+      fontSize: "0.95rem",
+      lineHeight: 1.6,
+    },
+    caption1: {
+      fontFamily: sansStack,
+      fontSize: "20rem",
+      lineHeight: "20px",
+      fontWeight: 400,
+      color: "#b0b0b0",
     },
   },
   components: {
