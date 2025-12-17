@@ -3,16 +3,25 @@ import { createTheme } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     caption1: React.CSSProperties;
+    t1: React.CSSProperties;
+    b1: React.CSSProperties;
+    b2: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     caption1?: React.CSSProperties;
+    t1?: React.CSSProperties;
+    b1?: React.CSSProperties;
+    b2?: React.CSSProperties;
   }
 }
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     caption1: true;
+    t1: true;
+    b1: true;
+    b2: true;
   }
 }
 const serifStack = '"Instrument Serif", "Playfair Display", "Georgia", serif';
@@ -30,7 +39,7 @@ export const theme = createTheme({
     },
     text: {
       primary: "#ffffff",
-      secondary: "#b0b0b0",
+      secondary: "#ffffff7e",
     },
   },
   typography: {
@@ -74,6 +83,25 @@ export const theme = createTheme({
       lineHeight: "20px",
       fontWeight: 400,
       color: "#b0b0b0",
+    },
+    t1: {
+      fontFamily: serifStack,
+      fontSize: "28px",
+      color: "#FFFFFF",
+    },
+    b1: {
+      fontFamily: sansStack,
+      fontSize: "15px",
+      lineHeight: "24px",
+      color: "#FFFFFF",
+      fontWeight: 500,
+    },
+    b2: {
+      fontFamily: sansStack,
+      fontSize: "15px",
+      lineHeight: "24px",
+      color: "#FFFFFF",
+      opacity: 0.5,
     },
   },
   components: {
