@@ -215,7 +215,7 @@ export const UserReviewsCarousel = () => {
         sx={{
           display: "flex",
           gap: 3,
-          animation: "scrollReviews 40s linear infinite",
+          animation: "scrollReviews 20s linear infinite",
           "&:hover": { animationPlayState: "paused" },
           "@keyframes scrollReviews": {
             "0%": { transform: "translateX(0)" },
