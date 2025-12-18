@@ -264,8 +264,6 @@ const AppShowcase = () => {
     <Box
       sx={{
         width: "100%",
-        bgcolor: "#000",
-
         display: "flex",
         justifyContent: "center",
       }}
@@ -274,7 +272,6 @@ const AppShowcase = () => {
         <Box sx={{ mb: 10 }}>
           <Typography
             sx={{
-              color: "#fff",
               fontSize: { xs: "22px", md: "28px" },
               fontWeight: 600,
               mb: 2,
@@ -285,7 +282,7 @@ const AppShowcase = () => {
 
           <Typography
             sx={{
-              color: "#9CA3AF",
+              color: "#6B7280",
               fontSize: "15px",
               lineHeight: 1.7,
             }}
@@ -311,25 +308,50 @@ const AppShowcase = () => {
           {showcaseData.map((item, index) => (
             <Box key={index} sx={{ textAlign: "center" }}>
               <Box
-                component="img"
-                src={item.src}
-                alt={item.label}
                 sx={{
+                  position: "relative",
                   width: "100%",
                   maxWidth: "260px",
                   mx: "auto",
                   display: "block",
-                  borderRadius: "28px",
-                  boxShadow:
-                    "0 0 40px rgba(0,255,100,0.15), 0 20px 60px rgba(0,0,0,0.8)",
                 }}
-              />
+              >
+                {/* Screenshot - smaller and centered */}
+                <Box
+                  component="img"
+                  src={item.src}
+                  alt={item.label}
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "85%",
+                    height: "85%",
+                    objectFit: "cover",
+                    display: "block",
+                    zIndex: 0,
+                  }}
+                />
+
+                <Box
+                  component="img"
+                  src="/projects/smartnas/iphoneFrame.webp"
+                  alt="iPhone Frame"
+                  sx={{
+                    position: "relative",
+                    width: "100%",
+                    display: "block",
+                    zIndex: 1,
+                  }}
+                />
+              </Box>
 
               <Typography
                 sx={{
                   mt: 2,
                   fontSize: "13px",
-                  color: "#9CA3AF",
+                  color: "#6B7280",
                 }}
               >
                 {item.label}
