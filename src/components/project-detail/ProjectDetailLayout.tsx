@@ -59,6 +59,8 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
       <Box
         sx={{
           width: "100%",
+          position: "relative",
+          bottom: "100px",
           maxWidth,
           mx: "auto",
           py: { xs: 6, md: 8 },
@@ -121,7 +123,13 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Box>
         )}
 
-        <Box sx={{ display: "flex", flexDirection: "column", gap: { xs: 4, md: 6 } }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: { xs: 4, md: 6 },
+          }}
+        >
           {children}
         </Box>
 
