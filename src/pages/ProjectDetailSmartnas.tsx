@@ -280,13 +280,7 @@ const AppShowcase = () => {
             Result
           </Typography>
 
-          <Typography
-            sx={{
-              color: "#6B7280",
-              fontSize: "15px",
-              lineHeight: 1.7,
-            }}
-          >
+          <Typography variant="b2">
             After months of user research, design iteration, internal reviews,
             and usability testing, we finally came up with the final product
             that not only supports all the complexity of the business but also
