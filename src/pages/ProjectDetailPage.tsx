@@ -6,7 +6,7 @@ import ProjectDetailSmartnas from "./ProjectDetailSmartnas";
 import ProjectDetailEccc from "./ProjectDetailEccc";
 import ProjectDetailFilelog from "./ProjectDetailFilelog";
 import ProjectDetailDefault from "./ProjectDetailDefault";
-import type { ProjectDetailComponentProps } from "./ProjectDetailTemplate";
+import type { ProjectDetailComponentProps } from "../components/project-detail/ProjectDetailLayout";
 
 const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();

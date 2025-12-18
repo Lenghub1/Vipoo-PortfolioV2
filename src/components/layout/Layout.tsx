@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
 import { projects } from "../../data/projects.data";
@@ -19,9 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         flexDirection: "column",
       }}
     >
-      <Container>
-        <Header />
-      </Container>
+      <Header />
 
       <Box
         sx={{
