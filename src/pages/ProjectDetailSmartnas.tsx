@@ -125,20 +125,12 @@ export const CustomerTestimonialCard = () => (
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: 3,
+          gap: "10px",
+          height: "322px",
           justifyContent: "flex-end",
         }}
       >
-        <Typography
-          sx={{
-            fontSize: { xs: "15px", md: "15px", lg: "28px" },
-            fontFamily: "Georgia, serif",
-            color: "#ffffff",
-            lineHeight: 1.2,
-            fontWeight: 400,
-            letterSpacing: "-0.02em",
-          }}
-        >
+        <Typography variant="t1" sx={{ lineHeight: "36px" }}>
           I open SmartNas every day, but it still shows me things I never use.
           Why doesn't the app focus on what matters to me?
         </Typography>
@@ -155,8 +147,10 @@ export const CustomerTestimonialCard = () => (
 
       <Box
         sx={{
-          position: "relative",
-          display: "flex",
+          position: "absolute",
+          bottom: -20,
+          right: 100,
+          scale: 1.2,
           justifyContent: { xs: "center", md: "flex-end" },
         }}
       >
@@ -209,11 +203,13 @@ export const UserReviewsCarousel = () => {
         },
         "&::before": {
           left: 0,
-          background: "linear-gradient(90deg, #000 0%, rgba(0,0,0,0) 100%)",
+          background:
+            "linear-gradient(90deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
         },
         "&::after": {
           right: 0,
-          background: "linear-gradient(270deg, #000 0%, rgba(0,0,0,0) 100%)",
+          background:
+            "linear-gradient(270deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
         },
       }}
     >
@@ -338,11 +334,11 @@ const AppShowcase = () => {
                   alt={item.label}
                   sx={{
                     position: "absolute",
+
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    width: "85%",
-                    height: "85%",
+                    width: "86.6%",
                     objectFit: "cover",
                     display: "block",
                     zIndex: 0,
