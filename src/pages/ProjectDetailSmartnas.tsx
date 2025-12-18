@@ -277,7 +277,7 @@ const AppShowcase = () => {
       }}
     >
       <Box sx={{ width: "100%", maxWidth: "1200px", px: 2 }}>
-        <Box sx={{ maxWidth: "700px", mb: 10 }}>
+        <Box sx={{ mb: 10 }}>
           <Typography
             sx={{
               color: "#fff",
@@ -292,7 +292,7 @@ const AppShowcase = () => {
           <Typography
             sx={{
               color: "#9CA3AF",
-              fontSize: "14px",
+              fontSize: "15px",
               lineHeight: 1.7,
             }}
           >
