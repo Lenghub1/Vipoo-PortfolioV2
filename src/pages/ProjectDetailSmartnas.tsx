@@ -178,7 +178,13 @@ export const CustomerTestimonialCard = () => (
 );
 
 export const UserReviewsCarousel = () => {
-  const duplicatedReviews = [...review, ...review];
+  const duplicatedReviews = [
+    ...review,
+    ...review,
+    ...review,
+    ...review,
+    ...review,
+  ];
 
   return (
     <Box
@@ -214,8 +220,10 @@ export const UserReviewsCarousel = () => {
       <Box
         sx={{
           display: "flex",
-          gap: 3,
-          animation: "scrollReviews 20s linear infinite",
+          gap: "12px",
+          alignItems: "flex-start",
+          animation: "scrollReviews 40s linear infinite",
+          willChange: "transform",
           "&:hover": { animationPlayState: "paused" },
           "@keyframes scrollReviews": {
             "0%": { transform: "translateX(0)" },
@@ -228,13 +236,13 @@ export const UserReviewsCarousel = () => {
             key={index}
             sx={{
               flex: "0 0 auto",
-              width: { xs: "280px", sm: "320px", md: "400px" },
+              width: { xs: "280px", md: "307px" },
               bgcolor: "#FFFFFF1A",
               borderRadius: "12px",
-              p: 3,
+              p: "12px 16px",
             }}
           >
-            <Box sx={{ display: "flex", gap: "4px", mb: 2 }}>
+            <Box sx={{ display: "flex" }}>
               {[1, 2, 3, 4, 5].map((star) => (
                 <Box
                   key={star}
@@ -249,7 +257,21 @@ export const UserReviewsCarousel = () => {
               ))}
             </Box>
             <Typography
-              sx={{ fontSize: "14px", lineHeight: 1.6, color: "#fff" }}
+              sx={{
+                fontSize: "12px",
+                fontWeight: 500,
+                lineHeight: "21px",
+              }}
+            >
+              {item.title}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                fontWeight: 400,
+                lineHeight: "21px",
+                color: "#8A8F98",
+              }}
             >
               {item.text}
             </Typography>
