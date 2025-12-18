@@ -178,85 +178,80 @@ export const CustomerTestimonialCard = () => (
 );
 
 export const UserReviewsCarousel = () => {
-  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
-
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5;
-
-    const scroll = () => {
-      scrollPosition += scrollSpeed;
-
-      if (scrollPosition >= scrollContainer.scrollWidth / 2) {
-        scrollPosition = 0;
-      }
-
-      scrollContainer.scrollLeft = scrollPosition;
-      requestAnimationFrame(scroll);
-    };
-
-    const animationId = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationId);
-  }, []);
-
-  const StarRating = ({ rating }: { rating: number }) => (
-    <Box sx={{ display: "flex", gap: "4px", mb: 2 }}>
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Box
-          key={star}
-          sx={{
-            color: "#FFB112",
-            fontSize: "20px",
-            opacity: star <= rating ? 1 : 0.3,
-          }}
-        >
-          ★
-        </Box>
-      ))}
-    </Box>
-  );
+  const duplicatedReviews = [...review, ...review];
 
   return (
-    <Box sx={{ width: "100%", overflow: "hidden", py: 4 }}>
+    <Box
+      sx={{
+        width: "99vw",
+        position: "relative",
+        left: "50%",
+        right: "50%",
+        marginLeft: "-50vw",
+        marginRight: "-50vw",
+        py: 4,
+        overflow: "hidden",
+        bgcolor: "#000",
+        "&::before, &::after": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          width: { xs: "40px", md: "80px" },
+          zIndex: 1,
+          pointerEvents: "none",
+        },
+        "&::before": {
+          left: 0,
+          background: "linear-gradient(90deg, #000 0%, rgba(0,0,0,0) 100%)",
+        },
+        "&::after": {
+          right: 0,
+          background: "linear-gradient(270deg, #000 0%, rgba(0,0,0,0) 100%)",
+        },
+      }}
+    >
       <Box
-        ref={scrollContainerRef}
         sx={{
           display: "flex",
           gap: 3,
-          overflowX: "hidden",
-          scrollBehavior: "auto",
-          "&::-webkit-scrollbar": { display: "none" },
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
+          animation: "scrollReviews 40s linear infinite",
+          "&:hover": { animationPlayState: "paused" },
+          "@keyframes scrollReviews": {
+            "0%": { transform: "translateX(0)" },
+            "100%": { transform: "translateX(-50%)" },
+          },
         }}
       >
-        {[...review, ...review].map((review, index) => (
+        {duplicatedReviews.map((item, index) => (
           <Box
             key={index}
             sx={{
-              minWidth: "320px",
-              maxWidth: "320px",
+              flex: "0 0 auto",
+              width: { xs: "280px", sm: "320px", md: "400px" },
               bgcolor: "#FFFFFF1A",
-
               borderRadius: "12px",
               p: 3,
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-              flexShrink: 0,
             }}
           >
-            <StarRating rating={review.rating} />
+            <Box sx={{ display: "flex", gap: "4px", mb: 2 }}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Box
+                  key={star}
+                  sx={{
+                    color: "#FFB112",
+                    fontSize: "20px",
+                    opacity: star <= item.rating ? 1 : 0.3,
+                  }}
+                >
+                  ★
+                </Box>
+              ))}
+            </Box>
             <Typography
-              sx={{
-                fontSize: "14px",
-                lineHeight: 1.6,
-                color: "#6B7280",
-              }}
+              sx={{ fontSize: "14px", lineHeight: 1.6, color: "#fff" }}
             >
-              {review.text}
+              {item.text}
             </Typography>
           </Box>
         ))}
@@ -264,7 +259,6 @@ export const UserReviewsCarousel = () => {
     </Box>
   );
 };
-
 const AppShowcase = () => {
   return (
     <Box
