@@ -191,7 +191,7 @@ export const UserReviewsCarousel = () => {
         marginRight: "-50vw",
         py: 4,
         overflow: "hidden",
-        bgcolor: "#000",
+
         "&::before, &::after": {
           content: '""',
           position: "absolute",
@@ -316,7 +316,6 @@ const AppShowcase = () => {
                   display: "block",
                 }}
               >
-                {/* Screenshot - smaller and centered */}
                 <Box
                   component="img"
                   src={item.src}
