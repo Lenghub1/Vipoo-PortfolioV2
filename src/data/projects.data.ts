@@ -54,7 +54,7 @@ export const projects: Project[] = [
     date: "Jan 01, 2026",
     description:
       "A platform for transparency, public awareness, and historical record of the ECCC's judicial process.",
-    image: "/projects/eccc/eccc.webp",
+    image: "/projects/eccc/thumbnail.webp",
     color: "#1e3a5f",
     details: {
       role: "Web Designer",

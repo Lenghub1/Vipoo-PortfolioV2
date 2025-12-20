@@ -380,7 +380,7 @@ const ProjectDetailSmartnas: React.FC<ProjectDetailComponentProps> = (
 ) => (
   <ProjectDetailLayout
     {...props}
-    bannerSrc="/projects/smartnas/smartnas-banner.webp"
+    bannerSrc="/projects/smartnas/banner.webp"
     maxWidth="1120px"
   >
     <DemoSection />

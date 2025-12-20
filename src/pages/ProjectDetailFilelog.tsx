@@ -9,7 +9,7 @@ const ProjectDetailFilelog: React.FC<ProjectDetailComponentProps> = (props) => (
   <ProjectDetailLayout
     {...props}
     maxWidth="1050px"
-    bannerSrc="/projects/filelog/filelog-banner.webp"
+    bannerSrc="/projects/filelog/banner.webp"
   >
     <ProjectDetailSection
       eyebrow="Problem framing"
