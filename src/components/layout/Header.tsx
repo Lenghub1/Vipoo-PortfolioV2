@@ -145,7 +145,6 @@ const Header: React.FC = () => {
           borderRadius={20}
           paddingX={18}
           sx={{
-            height: "32px",
             fontSize: "0.9rem",
             fontWeight: 600,
             "& .cta-icon": {
