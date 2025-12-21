@@ -389,6 +389,7 @@ const ProjectDetailSmartnas: React.FC<ProjectDetailComponentProps> = (
     {...props}
     bannerSrc="/projects/smartnas/banner.webp"
     maxWidth="1120px"
+    isQrcode
   >
     <DemoSection />
     <IPhoneFrameSection />

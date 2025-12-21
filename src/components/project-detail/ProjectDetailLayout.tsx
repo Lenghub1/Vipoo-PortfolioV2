@@ -12,7 +12,7 @@ export interface ProjectDetailComponentProps {
   project: Project;
   relatedProjects: Project[];
   onBack: () => void;
-
+  isQrcode?: boolean;
   allowBack?: boolean;
 }
 
@@ -28,17 +28,25 @@ interface ProjectDetailLayoutProps extends ProjectDetailComponentProps {
   meta?: ProjectMetaItem[];
 }
 
+interface StoreDownloadCardProps {
+  iconSrc: string;
+  label: string;
+}
+
+interface ProjectDetailSectionProps {
+  title: string;
+  eyebrow?: string;
+  layout?: "stacked" | "split";
+  media?: React.ReactNode;
+  children: React.ReactNode;
+}
+
 const buildDefaultMeta = (project: Project): ProjectMetaItem[] => [
   { label: "Company", value: project.client },
   { label: "Role", value: project.details?.role },
   { label: "Team", value: project.details?.team },
   { label: "Duration", value: project.details?.duration },
 ];
-
-interface StoreDownloadCardProps {
-  iconSrc: string;
-  label: string;
-}
 
 const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
   iconSrc,
@@ -57,10 +65,9 @@ const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
   >
     <Box
       sx={{
-        width: "100%",
         display: "flex",
-        alignItems: "flex-start",
         justifyContent: "space-between",
+        alignItems: "flex-start",
       }}
     >
       <Box component="img" src={iconSrc} alt={label} sx={{ width: 16 }} />
@@ -71,7 +78,8 @@ const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
         sx={{ width: 10, height: 10 }}
       />
     </Box>
-    <Typography variant="xs14" sx={{ textWrap: "nowrap" }}>
+
+    <Typography variant="xs14" sx={{ whiteSpace: "nowrap" }}>
       {label}
     </Typography>
   </Box>
@@ -83,8 +91,8 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
   onBack,
   allowBack,
   bannerSrc,
-
   meta,
+  isQrcode = false,
   children,
 }) => {
   const heroSrc = bannerSrc ?? project.image;
@@ -130,23 +138,15 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Button>
         )}
 
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "start",
-            gap: "32px",
-          }}
-        >
+        <Box sx={{ display: "flex", alignItems: "flex-start", gap: "32px" }}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <Typography
               variant="h1"
-              sx={{
-                minHeight: "80px",
-                fontSize: { xs: "2.25rem", md: "3rem" },
-              }}
+              sx={{ fontSize: { xs: "2.25rem", md: "3rem" } }}
             >
               {project.title}
             </Typography>
+
             <Typography
               sx={{
                 color: "text.secondary",
@@ -158,56 +158,51 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              border: "1px solid rgba(255,255,255,0.07)",
-              height: "100%",
-              display: "flex",
-              gap: "12px",
-            }}
-          >
+          {isQrcode && (
             <Box
               sx={{
-                bgcolor: "background.paper",
-                p: `${SN_DOWNLOAD_P}px`,
-                height: "fill-content",
-                width: "fit-content",
-                borderRadius: "12px",
-                border: "1px solid rgba(255,255,255,0.07)",
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "space-between",
+                gap: "12px",
+                border: "1px solid rgba(255,255,255,0.07)",
+                p: 2,
               }}
             >
-              <img
-                src="/projects/smartnas/qr.svg"
-                alt="QR Code"
-                style={{ width: 80, height: 80 }}
-              />
-              <Typography
-                variant="xs14"
+              <Box
                 sx={{
-                  width: 80,
-                  textAlign: "left",
-                  lineHeight: 1.3,
+                  bgcolor: "background.paper",
+                  p: `${SN_DOWNLOAD_P}px`,
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 1,
                 }}
               >
-                Scan to download
-              </Typography>
+                <img
+                  src="/projects/smartnas/qr.svg"
+                  alt="QR Code"
+                  style={{ width: 80, height: 80 }}
+                />
+                <Typography variant="xs14" sx={{ width: 80 }}>
+                  Scan to download
+                </Typography>
+              </Box>
+
+              <Box display="flex" flexDirection="column" gap="12px">
+                <StoreDownloadCard
+                  iconSrc="/projects/smartnas/appstore.svg"
+                  label="Open App Store"
+                />
+                <StoreDownloadCard
+                  iconSrc="/projects/smartnas/playstore.svg"
+                  label="Open Play Store"
+                />
+              </Box>
             </Box>
-            <Box display="flex" flexDirection="column" gap={"12px"}>
-              <StoreDownloadCard
-                iconSrc="/projects/smartnas/appstore.svg"
-                label="Open App Store"
-              />
-              <StoreDownloadCard
-                iconSrc="/projects/smartnas/playstore.svg"
-                label="Open Play Store"
-              />
-            </Box>
-          </Box>
+          )}
         </Box>
+
         {metaItems.length > 0 && (
           <Box
             sx={{
@@ -223,7 +218,7 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
               <Box key={item.label}>
                 <Typography
                   variant="overline"
-                  sx={{ color: "text.secondary", mb: 1, display: "block" }}
+                  sx={{ color: "text.secondary", mb: 1 }}
                 >
                   {item.label}
                 </Typography>
@@ -233,25 +228,13 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Box>
         )}
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: { xs: 4, md: 6 },
-          }}
-        >
-          {children}
-        </Box>
+        {children}
 
-        <Box
-          sx={{
-            pt: { xs: 4, md: 6 },
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-          }}
-        >
+        <Box sx={{ pt: 6, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <Typography variant="h4" sx={{ mb: 4 }}>
             View other projects
           </Typography>
+
           <Box
             sx={{
               display: "grid",
@@ -269,14 +252,6 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
   );
 };
 
-interface ProjectDetailSectionProps {
-  title: string;
-  eyebrow?: string;
-  layout?: "stacked" | "split";
-  media?: React.ReactNode;
-  children: React.ReactNode;
-}
-
 export const ProjectDetailSection: React.FC<ProjectDetailSectionProps> = ({
   title,
   eyebrow,
@@ -291,20 +266,13 @@ export const ProjectDetailSection: React.FC<ProjectDetailSectionProps> = ({
       {eyebrow && (
         <Typography
           variant="overline"
-          sx={{
-            color: "primary.light",
-            letterSpacing: 2,
-            mb: 1,
-            display: "block",
-          }}
+          sx={{ color: "primary.light", letterSpacing: 2, mb: 1 }}
         >
           {eyebrow}
         </Typography>
       )}
-      <Typography
-        variant="h3"
-        sx={{ mb: 2, fontSize: { xs: "1.5rem", md: "2rem" } }}
-      >
+
+      <Typography variant="h3" sx={{ mb: 2 }}>
         {title}
       </Typography>
 
@@ -317,20 +285,14 @@ export const ProjectDetailSection: React.FC<ProjectDetailSectionProps> = ({
             alignItems: "center",
           }}
         >
-          <Typography
-            variant="body1"
-            sx={{ color: "text.secondary", lineHeight: 1.8 }}
-          >
+          <Typography sx={{ color: "text.secondary", lineHeight: 1.8 }}>
             {children}
           </Typography>
-          <Box sx={{ width: "100%" }}>{media}</Box>
+          <Box>{media}</Box>
         </Box>
       ) : (
         <>
-          <Typography
-            variant="body1"
-            sx={{ color: "text.secondary", lineHeight: 1.8 }}
-          >
+          <Typography sx={{ color: "text.secondary", lineHeight: 1.8 }}>
             {children}
           </Typography>
           {media && <Box sx={{ mt: 3 }}>{media}</Box>}

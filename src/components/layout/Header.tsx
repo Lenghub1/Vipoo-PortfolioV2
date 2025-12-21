@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setHasAnimated(true);
-    }, 200);
+    }, 400);
 
     return () => clearTimeout(timer);
   }, []);
