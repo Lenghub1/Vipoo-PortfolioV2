@@ -1,11 +1,57 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { navigationLinks } from "../../routes/routes.config";
 import { CONTENT_MAX_WIDTH } from "../../theme/layout";
+import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const [heroInView, setHeroInView] = React.useState(false);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  React.useEffect(() => {
+    let heroEl: HTMLElement | null = null;
+
+    const findHeroAndAttach = () => {
+      heroEl = document.getElementById("hero-section");
+
+      if (!heroEl) {
+        requestAnimationFrame(findHeroAndAttach);
+        return;
+      }
+
+      const updateHeroVisibility = () => {
+        const rect = heroEl!.getBoundingClientRect();
+        setHeroInView(rect.bottom > 0);
+      };
+
+      updateHeroVisibility();
+
+      window.addEventListener("scroll", updateHeroVisibility, {
+        passive: true,
+      });
+      window.addEventListener("resize", updateHeroVisibility);
+
+      cleanup = () => {
+        window.removeEventListener("scroll", updateHeroVisibility);
+        window.removeEventListener("resize", updateHeroVisibility);
+      };
+    };
+
+    let cleanup = () => {};
+    findHeroAndAttach();
+
+    return () => cleanup();
+  }, [location.pathname]);
 
   return (
     <Box
@@ -18,6 +64,9 @@ const Header: React.FC = () => {
         bgcolor: "background.default",
         zIndex: 1000,
         px: { xs: "24px", md: 0 },
+        opacity: hasAnimated ? 1 : 0,
+        transform: hasAnimated ? "translateY(0)" : "translateY(-20px)",
+        transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
       }}
     >
       <Box
@@ -40,7 +89,6 @@ const Header: React.FC = () => {
               sx={{
                 width: "auto",
                 height: "20px",
-
                 transition: "opacity 0.3s ease-out, filter 0.3s ease-out",
                 flexShrink: 0,
                 "&:hover": {
@@ -111,21 +159,39 @@ const Header: React.FC = () => {
           })}
         </Box>
 
-        <Button
-          variant="contained"
+        <FloatingCTAButton
+          label="Get in touch"
+          iconSrc="/hello/hi5.svg"
+          appearance={heroInView ? "ghost" : "solid"}
+          height={40}
+          borderRadius={20}
+          paddingX={18}
           sx={{
-            bgcolor: "white",
-            color: "black",
-            fontSize: "13px",
-            px: "12px",
+            fontSize: "0.9rem",
             fontWeight: 600,
-            "&:hover": {
-              bgcolor: "#ffc940",
+            "& .cta-icon": {
+              display: heroInView ? "none" : "block",
+              opacity: heroInView ? 0 : 1,
+              transform: heroInView ? "translateX(8px)" : "translateX(16px)",
+              ...(heroInView
+                ? { animation: "none" }
+                : {
+                    animation: "ctaIconSlide 0.4s ease forwards",
+                  }),
             },
+            "@keyframes ctaIconSlide": {
+              "0%": { opacity: 0, transform: "translateX(16px)" },
+              "100%": { opacity: 1, transform: "translateX(0)" },
+            },
+            ...(heroInView && {
+              "&:hover": {
+                bgcolor: "#FFFFFF",
+                color: "#000000",
+                borderColor: "transparent",
+              },
+            }),
           }}
-        >
-          Get in touch
-        </Button>
+        />
       </Box>
     </Box>
   );

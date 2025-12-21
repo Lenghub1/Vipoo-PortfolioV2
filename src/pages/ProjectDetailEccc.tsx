@@ -9,7 +9,7 @@ const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
   <ProjectDetailLayout
     {...props}
     maxWidth="1100px"
-    bannerSrc="/projects/eccc/eccc-banner.webp"
+    bannerSrc="/projects/eccc/banner.webp"
   >
     <ProjectDetailSection
       eyebrow="Information architecture"

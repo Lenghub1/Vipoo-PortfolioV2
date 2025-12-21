@@ -1,12 +1,13 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { clients } from "../../data/projects.data";
+import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const HeroSection: React.FC = () => {
   const duplicatedClients = [...clients, ...clients];
 
   return (
-    <Box sx={{ py: { xs: 8, md: 12 } }}>
+    <Box id="hero-section" sx={{ py: { xs: 8, md: 12 } }}>
       <Typography
         variant="h1"
         sx={{
@@ -59,9 +60,6 @@ const HeroSection: React.FC = () => {
           sx={{
             display: "inline-block",
             animation: "scrollClients 20s linear infinite",
-            "&:hover": {
-              animationPlayState: "paused",
-            },
             "@keyframes scrollClients": {
               "0%": { transform: "translateX(0)" },
               "100%": { transform: "translateX(-50%)" },
@@ -70,7 +68,7 @@ const HeroSection: React.FC = () => {
         >
           {duplicatedClients.map((client, index) => (
             <Box
-              key={index}
+              key={`${client.name}-${index}`}
               component="img"
               src={client.logo}
               alt={client.name}
@@ -94,31 +92,14 @@ const HeroSection: React.FC = () => {
         </Box>
       </Box>
 
-      <Button
-        variant="contained"
-        sx={{
-          bgcolor: "primary.main",
-          color: "black",
-          px: 4,
-          py: 1.5,
-          fontWeight: 600,
-          fontSize: "1rem",
-          display: "flex",
-          alignItems: "center",
-          gap: 1.5,
-          "&:hover": {
-            bgcolor: "#ffc940",
-          },
-        }}
-      >
-        <Box
-          component="img"
-          src="hello/hi5.svg"
-          alt="Hi5"
-          sx={{ width: "18.54px", height: "18.54px" }}
-        />
-        Get in touch
-      </Button>
+      <FloatingCTAButton
+        label="Get in touch"
+        iconSrc="hello/hi5.svg"
+        appearance="solid"
+        height={48}
+        borderRadius={24}
+        sx={{ fontSize: "1rem", fontWeight: 600 }}
+      />
     </Box>
   );
 };

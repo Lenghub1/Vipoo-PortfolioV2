@@ -83,7 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <Box
                 component="span"
                 sx={{
-                  bgcolor: "rgba(253, 181, 21, 0.2)",
+                  bgcolor: "#93d4ff34",
                   color: "primary.main",
                   fontWeight: 600,
                   fontSize: "12px",
