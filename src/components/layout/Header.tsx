@@ -8,29 +8,49 @@ import FloatingCTAButton from "../shared/FloatingCTAButton";
 const Header: React.FC = () => {
   const location = useLocation();
   const [heroInView, setHeroInView] = React.useState(false);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
 
   React.useEffect(() => {
-    const heroEl = document.getElementById("hero-section");
+    const timer = setTimeout(() => {
+      setHasAnimated(true);
+    }, 200);
 
-    if (!heroEl) {
-      setHeroInView(false);
-      return;
-    }
+    return () => clearTimeout(timer);
+  }, []);
 
-    const updateHeroVisibility = () => {
-      const rect = heroEl.getBoundingClientRect();
-      setHeroInView(rect.bottom > 0);
+  React.useEffect(() => {
+    let heroEl: HTMLElement | null = null;
+
+    const findHeroAndAttach = () => {
+      heroEl = document.getElementById("hero-section");
+
+      if (!heroEl) {
+        requestAnimationFrame(findHeroAndAttach);
+        return;
+      }
+
+      const updateHeroVisibility = () => {
+        const rect = heroEl!.getBoundingClientRect();
+        setHeroInView(rect.bottom > 0);
+      };
+
+      updateHeroVisibility();
+
+      window.addEventListener("scroll", updateHeroVisibility, {
+        passive: true,
+      });
+      window.addEventListener("resize", updateHeroVisibility);
+
+      cleanup = () => {
+        window.removeEventListener("scroll", updateHeroVisibility);
+        window.removeEventListener("resize", updateHeroVisibility);
+      };
     };
 
-    updateHeroVisibility();
+    let cleanup = () => {};
+    findHeroAndAttach();
 
-    window.addEventListener("scroll", updateHeroVisibility, { passive: true });
-    window.addEventListener("resize", updateHeroVisibility);
-
-    return () => {
-      window.removeEventListener("scroll", updateHeroVisibility);
-      window.removeEventListener("resize", updateHeroVisibility);
-    };
+    return () => cleanup();
   }, [location.pathname]);
 
   return (
@@ -44,6 +64,9 @@ const Header: React.FC = () => {
         bgcolor: "background.default",
         zIndex: 1000,
         px: { xs: "24px", md: 0 },
+        opacity: hasAnimated ? 1 : 0,
+        transform: hasAnimated ? "translateY(0)" : "translateY(-20px)",
+        transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
       }}
     >
       <Box
@@ -66,7 +89,6 @@ const Header: React.FC = () => {
               sx={{
                 width: "auto",
                 height: "20px",
-
                 transition: "opacity 0.3s ease-out, filter 0.3s ease-out",
                 flexShrink: 0,
                 "&:hover": {
@@ -139,7 +161,7 @@ const Header: React.FC = () => {
 
         <FloatingCTAButton
           label="Get in touch"
-          iconSrc="hello/hi5.svg"
+          iconSrc="/hello/hi5.svg"
           appearance={heroInView ? "ghost" : "solid"}
           height={40}
           borderRadius={20}
