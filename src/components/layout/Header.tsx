@@ -1,11 +1,37 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import { navigationLinks } from "../../routes/routes.config";
 import { CONTENT_MAX_WIDTH } from "../../theme/layout";
+import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const [heroInView, setHeroInView] = React.useState(false);
+
+  React.useEffect(() => {
+    const heroEl = document.getElementById("hero-section");
+
+    if (!heroEl) {
+      setHeroInView(false);
+      return;
+    }
+
+    const updateHeroVisibility = () => {
+      const rect = heroEl.getBoundingClientRect();
+      setHeroInView(rect.bottom > 0);
+    };
+
+    updateHeroVisibility();
+
+    window.addEventListener("scroll", updateHeroVisibility, { passive: true });
+    window.addEventListener("resize", updateHeroVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateHeroVisibility);
+      window.removeEventListener("resize", updateHeroVisibility);
+    };
+  }, [location.pathname]);
 
   return (
     <Box
@@ -111,21 +137,40 @@ const Header: React.FC = () => {
           })}
         </Box>
 
-        <Button
-          variant="contained"
+        <FloatingCTAButton
+          label="Get in touch"
+          iconSrc="hello/hi5.svg"
+          appearance={heroInView ? "ghost" : "solid"}
+          height={40}
+          borderRadius={20}
+          paddingX={18}
           sx={{
-            bgcolor: "white",
-            color: "black",
-            fontSize: "13px",
-            px: "12px",
+            height: "32px",
+            fontSize: "0.9rem",
             fontWeight: 600,
-            "&:hover": {
-              bgcolor: "#ffc940",
+            "& .cta-icon": {
+              display: heroInView ? "none" : "block",
+              opacity: heroInView ? 0 : 1,
+              transform: heroInView ? "translateX(8px)" : "translateX(16px)",
+              ...(heroInView
+                ? { animation: "none" }
+                : {
+                    animation: "ctaIconSlide 0.4s ease forwards",
+                  }),
             },
+            "@keyframes ctaIconSlide": {
+              "0%": { opacity: 0, transform: "translateX(16px)" },
+              "100%": { opacity: 1, transform: "translateX(0)" },
+            },
+            ...(heroInView && {
+              "&:hover": {
+                bgcolor: "#FFFFFF",
+                color: "#000000",
+                borderColor: "transparent",
+              },
+            }),
           }}
-        >
-          Get in touch
-        </Button>
+        />
       </Box>
     </Box>
   );
