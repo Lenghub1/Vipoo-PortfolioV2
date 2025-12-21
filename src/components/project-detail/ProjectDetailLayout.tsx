@@ -7,7 +7,7 @@ export interface ProjectDetailComponentProps {
   project: Project;
   relatedProjects: Project[];
   onBack: () => void;
-
+  isQrcode?: boolean;
   allowBack?: boolean;
 }
 
@@ -38,6 +38,7 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
   bannerSrc,
   maxWidth = "1040px",
   meta,
+  isQrcode = false,
   children,
 }) => {
   const heroSrc = bannerSrc ?? project.image;
@@ -87,9 +88,9 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
             justifyContent: "space-between",
             gap: 4,
+            alignItems: "center",
           }}
         >
           <Box sx={{ flex: 1 }}>
@@ -107,38 +108,16 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              flexShrink: 0,
-              flexDirection: { xs: "column", md: "row" },
-            }}
-          >
+          {isQrcode && (
             <Box
               sx={{
-                bgcolor: "#0E0E0F",
-                p: 2,
-                borderRadius: 2,
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                gap: 1,
-                minWidth: 150,
+                gap: 2,
+                flexShrink: 0,
+                height: "154px",
+                flexDirection: { xs: "column", md: "row" },
               }}
             >
-              <img
-                src="your-qr-code.svg"
-                alt="QR Code"
-                style={{ width: 80, height: 80 }}
-              />
-              <Typography variant="body2">
-                Scan to
-                <br />
-                download
-              </Typography>
-            </Box>
-            <Box display="flex" flexDirection="column" gap={2} width="132px">
               <Box
                 sx={{
                   bgcolor: "#0E0E0F",
@@ -146,41 +125,71 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
                   borderRadius: 2,
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center",
+                  justifyContent: "space-between",
                   gap: 1,
-                  minWidth: 150,
+                  minWidth: 104,
                 }}
               >
                 <img
-                  src="your-appstore-icon.svg"
-                  alt="App Store"
-                  style={{ width: 40, height: 40 }}
+                  src="/projects/smartnas/qr.svg"
+                  alt="QR Code"
+                  style={{ width: 80, height: 80 }}
                 />
-                <Typography variant="body2">Open AppStore</Typography>
+                <Typography variant="body2">
+                  Scan to
+                  <br />
+                  download
+                </Typography>
               </Box>
-              <Box
-                sx={{
-                  bgcolor: "#0E0E0F",
 
-                  p: 2,
-                  borderRadius: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 1,
-                  minWidth: 150,
-                }}
-              >
-                <img
-                  src="your-appstore-icon.svg"
-                  alt="App Store"
-                  style={{ width: 40, height: 40 }}
-                />
-                <Typography variant="body2">Open AppStore</Typography>
+              {/* Stores */}
+              <Box display="flex" flexDirection="column" gap={2} width="150px">
+                {/* App Store */}
+                <Box
+                  sx={{
+                    bgcolor: "#0E0E0F",
+                    p: 2,
+                    borderRadius: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start", // ✅ FIX
+                    gap: 1,
+                    width: "100%",
+                  }}
+                >
+                  <img
+                    src="/projects/smartnas/appstore.svg"
+                    alt="App Store"
+                    style={{ width: 16, height: 16 }}
+                  />
+                  <Typography variant="body2">Open App Store</Typography>
+                </Box>
+
+                {/* Play Store */}
+                <Box
+                  sx={{
+                    bgcolor: "#0E0E0F",
+                    p: 2,
+                    borderRadius: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start", // ✅ FIX
+                    gap: 1,
+                    width: "100%",
+                  }}
+                >
+                  <img
+                    src="/projects/smartnas/playstore.svg"
+                    alt="Play Store"
+                    style={{ width: 16, height: 16 }}
+                  />
+                  <Typography variant="body2">Open Play Store</Typography>
+                </Box>
               </Box>
             </Box>
-          </Box>
+          )}
         </Box>
+
         {metaItems.length > 0 && (
           <Box
             sx={{
@@ -206,19 +215,13 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Box>
         )}
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: { xs: 4, md: 6 },
-          }}
-        >
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {children}
         </Box>
 
         <Box
           sx={{
-            pt: { xs: 4, md: 6 },
+            pt: 6,
             borderTop: "1px solid rgba(255,255,255,0.08)",
           }}
         >
@@ -241,7 +244,6 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
     </Box>
   );
 };
-
 interface ProjectDetailSectionProps {
   title: string;
   eyebrow?: string;
