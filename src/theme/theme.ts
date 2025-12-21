@@ -6,6 +6,7 @@ declare module "@mui/material/styles" {
     t1: React.CSSProperties;
     b1: React.CSSProperties;
     b2: React.CSSProperties;
+    xs14?: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
@@ -13,6 +14,7 @@ declare module "@mui/material/styles" {
     t1?: React.CSSProperties;
     b1?: React.CSSProperties;
     b2?: React.CSSProperties;
+    xs14?: React.CSSProperties;
   }
 }
 
@@ -22,6 +24,7 @@ declare module "@mui/material/Typography" {
     t1: true;
     b1: true;
     b2: true;
+    xs14: true;
   }
 }
 const serifStack = '"Instrument Serif", "Playfair Display", "Georgia", serif';
@@ -35,7 +38,7 @@ export const theme = createTheme({
     },
     background: {
       default: "#0a0a0a",
-      paper: "#1a1a1a",
+      paper: "#0E0E0F",
     },
     text: {
       primary: "#ffffff",
@@ -102,6 +105,12 @@ export const theme = createTheme({
       lineHeight: "24px",
       color: "#FFFFFF",
       opacity: 0.5,
+    },
+    xs14: {
+      fontFamily: sansStack,
+      fontSize: "14px",
+      lineHeight: "17px",
+      color: "#FFFFFF",
     },
   },
   components: {

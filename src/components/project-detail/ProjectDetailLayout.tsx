@@ -2,6 +2,11 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import ProjectCard from "../home/ProjectCard";
 import type { Project } from "../../types/project.types";
+import {
+  CONTENT_MAX_WIDTH,
+  GLOBAL_PX,
+  SN_DOWNLOAD_P,
+} from "../../theme/layout";
 
 export interface ProjectDetailComponentProps {
   project: Project;
@@ -30,13 +35,55 @@ const buildDefaultMeta = (project: Project): ProjectMetaItem[] => [
   { label: "Duration", value: project.details?.duration },
 ];
 
+interface StoreDownloadCardProps {
+  iconSrc: string;
+  label: string;
+}
+
+const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
+  iconSrc,
+  label,
+}) => (
+  <Box
+    sx={{
+      bgcolor: "background.paper",
+      p: `${SN_DOWNLOAD_P}px`,
+      border: "1px solid rgba(255,255,255,0.07)",
+      borderRadius: "12px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    }}
+  >
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+      }}
+    >
+      <Box component="img" src={iconSrc} alt={label} sx={{ width: 16 }} />
+      <Box
+        component="img"
+        src="/global/arrow_up_right.svg"
+        alt="External link"
+        sx={{ width: 10, height: 10 }}
+      />
+    </Box>
+    <Typography variant="xs14" sx={{ textWrap: "nowrap" }}>
+      {label}
+    </Typography>
+  </Box>
+);
+
 const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
   project,
   relatedProjects,
   onBack,
   allowBack,
   bannerSrc,
-  maxWidth = "1040px",
+
   meta,
   children,
 }) => {
@@ -59,13 +106,12 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
 
       <Box
         sx={{
-          width: "100%",
           position: "relative",
           bottom: "100px",
-          maxWidth,
           mx: "auto",
+          maxWidth: `${CONTENT_MAX_WIDTH}px`,
           py: { xs: 6, md: 8 },
-          px: { xs: 2, md: 0 },
+          px: `${GLOBAL_PX}px`,
           display: "flex",
           flexDirection: "column",
           gap: { xs: 4, md: 6 },
@@ -87,21 +133,26 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 4,
+            alignItems: "start",
+            gap: "32px",
           }}
         >
-          <Box sx={{ flex: 1 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <Typography
               variant="h1"
-              sx={{ mb: 2, fontSize: { xs: "2.25rem", md: "3rem" } }}
+              sx={{
+                minHeight: "80px",
+                fontSize: { xs: "2.25rem", md: "3rem" },
+              }}
             >
               {project.title}
             </Typography>
             <Typography
-              variant="body1"
-              sx={{ color: "text.secondary", maxWidth: 840, lineHeight: 1.8 }}
+              sx={{
+                color: "text.secondary",
+                fontSize: "20px",
+                lineHeight: "26px",
+              }}
             >
               {project.description}
             </Typography>
@@ -109,75 +160,51 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
 
           <Box
             sx={{
+              border: "1px solid rgba(255,255,255,0.07)",
+              height: "100%",
               display: "flex",
-              gap: 2,
-              flexShrink: 0,
-              flexDirection: { xs: "column", md: "row" },
+              gap: "12px",
             }}
           >
             <Box
               sx={{
-                bgcolor: "#0E0E0F",
-                p: 2,
-                borderRadius: 2,
+                bgcolor: "background.paper",
+                p: `${SN_DOWNLOAD_P}px`,
+                height: "fill-content",
+                width: "fit-content",
+                borderRadius: "12px",
+                border: "1px solid rgba(255,255,255,0.07)",
                 display: "flex",
                 flexDirection: "column",
+                alignItems: "center",
                 justifyContent: "space-between",
-                gap: 1,
-                minWidth: 150,
               }}
             >
               <img
-                src="your-qr-code.svg"
+                src="/projects/smartnas/qr.svg"
                 alt="QR Code"
                 style={{ width: 80, height: 80 }}
               />
-              <Typography variant="body2">
-                Scan to
-                <br />
-                download
+              <Typography
+                variant="xs14"
+                sx={{
+                  width: 80,
+                  textAlign: "left",
+                  lineHeight: 1.3,
+                }}
+              >
+                Scan to download
               </Typography>
             </Box>
-            <Box display="flex" flexDirection="column" gap={2} width="132px">
-              <Box
-                sx={{
-                  bgcolor: "#0E0E0F",
-                  p: 2,
-                  borderRadius: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 1,
-                  minWidth: 150,
-                }}
-              >
-                <img
-                  src="your-appstore-icon.svg"
-                  alt="App Store"
-                  style={{ width: 40, height: 40 }}
-                />
-                <Typography variant="body2">Open AppStore</Typography>
-              </Box>
-              <Box
-                sx={{
-                  bgcolor: "#0E0E0F",
-
-                  p: 2,
-                  borderRadius: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: 1,
-                  minWidth: 150,
-                }}
-              >
-                <img
-                  src="your-appstore-icon.svg"
-                  alt="App Store"
-                  style={{ width: 40, height: 40 }}
-                />
-                <Typography variant="body2">Open AppStore</Typography>
-              </Box>
+            <Box display="flex" flexDirection="column" gap={"12px"}>
+              <StoreDownloadCard
+                iconSrc="/projects/smartnas/appstore.svg"
+                label="Open App Store"
+              />
+              <StoreDownloadCard
+                iconSrc="/projects/smartnas/playstore.svg"
+                label="Open Play Store"
+              />
             </Box>
           </Box>
         </Box>

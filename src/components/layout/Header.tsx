@@ -63,7 +63,6 @@ const Header: React.FC = () => {
         top: 0,
         bgcolor: "background.default",
         zIndex: 1000,
-        px: { xs: "24px", md: 0 },
         opacity: hasAnimated ? 1 : 0,
         transform: hasAnimated ? "translateY(0)" : "translateY(-20px)",
         transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
@@ -73,6 +72,7 @@ const Header: React.FC = () => {
         sx={{
           width: "100%",
           maxWidth: `${CONTENT_MAX_WIDTH}px`,
+          px: "24px",
           height: "100%",
           mx: "auto",
           display: "flex",
@@ -84,7 +84,7 @@ const Header: React.FC = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Box
               component="img"
-              src="/hello/viphoulogo.svg"
+              src="/global/viphoulogo.svg"
               alt="Viphou logo"
               sx={{
                 width: "auto",
@@ -161,7 +161,7 @@ const Header: React.FC = () => {
 
         <FloatingCTAButton
           label="Get in touch"
-          iconSrc="/hello/hi5.svg"
+          iconSrc="/global/hi5.svg"
           appearance={heroInView ? "ghost" : "solid"}
           height={40}
           borderRadius={20}

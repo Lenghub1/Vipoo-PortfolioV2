@@ -6,9 +6,18 @@ import ProjectDetailLayout, {
   type ProjectDetailComponentProps,
 } from "../components/project-detail/ProjectDetailLayout";
 import DashedFadeDivider from "../components/dash/DashedFadeDivider";
+import { Button } from "@mui/material";
+import { CONTENT_MAX_WIDTH } from "../theme/layout";
 
 export const RevampReasonSection = () => (
-  <Box sx={{ display: "flex", flexDirection: "column" }}>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      gap: 2,
+      maxWidth: CONTENT_MAX_WIDTH,
+    }}
+  >
     <Typography variant="t1" sx={{ mb: "4px" }}>
       Why we decide to do the revamp
     </Typography>
@@ -21,8 +30,6 @@ export const RevampReasonSection = () => (
     </Typography>
   </Box>
 );
-
-import { Button } from "@mui/material";
 
 export const DemoSection = () => (
   <Box
