@@ -7,6 +7,7 @@ export interface ProjectDetailComponentProps {
   project: Project;
   relatedProjects: Project[];
   onBack: () => void;
+
   allowBack?: boolean;
 }
 
@@ -83,21 +84,103 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Button>
         )}
 
-        <Box>
-          <Typography
-            variant="h1"
-            sx={{ mb: 2, fontSize: { xs: "2.25rem", md: "3rem" } }}
-          >
-            {project.title}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ color: "text.secondary", maxWidth: 840, lineHeight: 1.8 }}
-          >
-            {project.description}
-          </Typography>
-        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 4,
+          }}
+        >
+          <Box sx={{ flex: 1 }}>
+            <Typography
+              variant="h1"
+              sx={{ mb: 2, fontSize: { xs: "2.25rem", md: "3rem" } }}
+            >
+              {project.title}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ color: "text.secondary", maxWidth: 840, lineHeight: 1.8 }}
+            >
+              {project.description}
+            </Typography>
+          </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              flexShrink: 0,
+              flexDirection: { xs: "column", md: "row" },
+            }}
+          >
+            <Box
+              sx={{
+                bgcolor: "#0E0E0F",
+                p: 2,
+                borderRadius: 2,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                gap: 1,
+                minWidth: 150,
+              }}
+            >
+              <img
+                src="your-qr-code.svg"
+                alt="QR Code"
+                style={{ width: 80, height: 80 }}
+              />
+              <Typography variant="body2">
+                Scan to
+                <br />
+                download
+              </Typography>
+            </Box>
+            <Box display="flex" flexDirection="column" gap={2} width="132px">
+              <Box
+                sx={{
+                  bgcolor: "#0E0E0F",
+                  p: 2,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 1,
+                  minWidth: 150,
+                }}
+              >
+                <img
+                  src="your-appstore-icon.svg"
+                  alt="App Store"
+                  style={{ width: 40, height: 40 }}
+                />
+                <Typography variant="body2">Open AppStore</Typography>
+              </Box>
+              <Box
+                sx={{
+                  bgcolor: "#0E0E0F",
+
+                  p: 2,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 1,
+                  minWidth: 150,
+                }}
+              >
+                <img
+                  src="your-appstore-icon.svg"
+                  alt="App Store"
+                  style={{ width: 40, height: 40 }}
+                />
+                <Typography variant="body2">Open AppStore</Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
         {metaItems.length > 0 && (
           <Box
             sx={{
