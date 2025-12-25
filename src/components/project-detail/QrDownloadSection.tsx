@@ -56,8 +56,6 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
 
 const QrDownloadSection: React.FC = () => {
   const [isQrFull, setIsQrFull] = React.useState(false);
-  const qrScale = 1;
-  const qrPressedScale = qrScale * 0.95;
 
   return (
     <Box
@@ -80,7 +78,7 @@ const QrDownloadSection: React.FC = () => {
           minWidth: 104,
           height: isQrFull ? 156 : "auto",
           aspectRatio: isQrFull ? "1 / 1" : "auto",
-          overflow: isQrFull ? "hidden" : "visible",
+          overflow: "hidden",
           cursor: "pointer",
           display: "flex",
           flexDirection: "column",
@@ -90,7 +88,7 @@ const QrDownloadSection: React.FC = () => {
           backgroundColor: isQrFull
             ? "rgba(255,255,255,0.04)"
             : "background.paper",
-          transition: "background-color 300ms ease, transform 150ms ease",
+          transition: "all 400ms cubic-bezier(0.4, 0, 0.2, 1)",
           "&:hover": {
             backgroundColor: isQrFull
               ? "rgba(255,255,255,0.12)"
@@ -103,13 +101,6 @@ const QrDownloadSection: React.FC = () => {
           "&:active": {
             transform: "scale(0.95)",
           },
-          "& img": {
-            transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
-            transform: `scale(${qrScale})`,
-          },
-          "&:active img": {
-            transform: `scale(${qrPressedScale})`,
-          },
         }}
       >
         <Box
@@ -120,6 +111,7 @@ const QrDownloadSection: React.FC = () => {
             width: isQrFull ? "100%" : "auto",
             height: isQrFull ? "100%" : "auto",
             objectFit: isQrFull ? "cover" : "contain",
+            transition: "all 400ms cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         />
         {!isQrFull && (
