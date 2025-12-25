@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import ProjectCard from "../home/ProjectCard";
 import type { Project } from "../../types/project.types";
 import {
@@ -8,7 +9,7 @@ import {
   SN_DOWNLOAD_P,
 } from "../../theme/layout";
 
-export interface ProjectDetailComponentProps {
+export interface DetailComponentProps {
   project: Project;
   relatedProjects: Project[];
   onBack: () => void;
@@ -21,19 +22,19 @@ export interface ProjectMetaItem {
   value?: React.ReactNode;
 }
 
-interface ProjectDetailLayoutProps extends ProjectDetailComponentProps {
+interface DetailLayoutProps extends DetailComponentProps {
   children: React.ReactNode;
   bannerSrc?: string;
   maxWidth?: number | string;
   meta?: ProjectMetaItem[];
 }
 
-interface StoreDownloadCardProps {
+interface DownloadCardProps {
   iconSrc: string;
   label: string;
 }
 
-interface ProjectDetailSectionProps {
+interface DetailSectionProps {
   title: string;
   eyebrow?: string;
   layout?: "stacked" | "split";
@@ -48,19 +49,29 @@ const buildDefaultMeta = (project: Project): ProjectMetaItem[] => [
   { label: "Duration", value: project.details?.duration },
 ];
 
-const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
-  iconSrc,
-  label,
-}) => (
+const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
   <Box
+    component="button"
+    type="button"
     sx={{
       bgcolor: "background.paper",
+      height: "100%",
       p: `${SN_DOWNLOAD_P}px`,
       border: "1px solid rgba(255,255,255,0.07)",
       borderRadius: "12px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
+      cursor: "pointer",
+      transition: "background-color 200ms ease, transform 150ms ease",
+      "&:hover": { bgcolor: "rgba(255,255,255,0.08)" },
+      "&:focus-visible": {
+        outline: "2px solid rgba(255,255,255,0.4)",
+        outlineOffset: 2,
+      },
+      "&:active": {
+        transform: "scale(0.97)",
+      },
     }}
   >
     <Box
@@ -85,7 +96,7 @@ const StoreDownloadCard: React.FC<StoreDownloadCardProps> = ({
   </Box>
 );
 
-const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
+const DetailLayout: React.FC<DetailLayoutProps> = ({
   project,
   relatedProjects,
   onBack,
@@ -97,20 +108,41 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
 }) => {
   const heroSrc = bannerSrc ?? project.image;
   const metaItems = meta ?? buildDefaultMeta(project);
+  const overlayColor = project.color ?? "#0B0C0D";
+  const [isQrFull, setIsQrFull] = React.useState(true);
+  const qrScale = isQrFull ? 1 : 0.85;
+  const qrPressedScale = qrScale * 0.95;
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box
-        component="img"
-        src={heroSrc}
-        alt={`${project.title} banner`}
-        sx={{
-          width: "100%",
-          height: { xs: 320, md: 560 },
-          objectFit: "cover",
-          display: "block",
-        }}
-      />
+      <Box sx={{ position: "relative" }}>
+        <Box
+          component="img"
+          src={heroSrc}
+          alt={`${project.title} banner`}
+          sx={{
+            width: "100%",
+            height: { xs: 320, md: 560 },
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: { xs: "55%", md: "60%" },
+            pointerEvents: "none",
+            background: `linear-gradient(180deg, ${alpha(
+              overlayColor,
+              0
+            )} 0%, #0B0C0D 100%)`,
+            overflow: "hidden",
+          }}
+        />
+      </Box>
 
       <Box
         sx={{
@@ -118,11 +150,11 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           bottom: "100px",
           mx: "auto",
           maxWidth: `${CONTENT_MAX_WIDTH}px`,
-          py: { xs: 6, md: 8 },
+          py: 5,
           px: `${GLOBAL_PX}px`,
           display: "flex",
           flexDirection: "column",
-          gap: { xs: 4, md: 6 },
+          gap: { xs: 4, md: "80px" },
         }}
       >
         {allowBack && (
@@ -138,8 +170,14 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
           </Button>
         )}
 
-        <Box sx={{ display: "flex", alignItems: "flex-start", gap: "32px" }}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+        <Box sx={{ display: "flex", gap: "32px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <Typography
               variant="h1"
               sx={{ fontSize: { xs: "2.25rem", md: "3rem" } }}
@@ -162,39 +200,78 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
             <Box
               sx={{
                 display: "flex",
+                height: "156px",
                 gap: "12px",
-                border: "1px solid rgba(255,255,255,0.07)",
-                p: 2,
               }}
             >
               <Box
+                component="button"
+                type="button"
+                onClick={() => setIsQrFull((prev) => !prev)}
+                aria-pressed={isQrFull}
                 sx={{
-                  bgcolor: "background.paper",
-                  p: `${SN_DOWNLOAD_P}px`,
+                  p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
+                  border: "1px solid rgba(255,255,255,0.12)",
                   borderRadius: "12px",
-                  border: "1px solid rgba(255,255,255,0.07)",
+
+                  height: isQrFull ? "100%" : "auto",
+                  aspectRatio: isQrFull ? "1 / 1" : "auto",
+                  overflow: isQrFull ? "hidden" : "visible",
+                  cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 1,
+                  backgroundColor: isQrFull ? "#000000" : "background.paper",
+                  transition:
+                    "background-color 300ms ease, transform 150ms ease",
+                  "&:hover": {
+                    backgroundColor: isQrFull
+                      ? "rgba(255,255,255,0.12)"
+                      : "rgba(255,255,255,0.08)",
+                  },
+                  "&:focus-visible": {
+                    outline: "2px solid rgba(255,255,255,0.5)",
+                    outlineOffset: 2,
+                  },
+                  "&:active": {
+                    transform: "scale(0.95)",
+                  },
+                  "& img": {
+                    transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
+                    transform: `scale(${qrScale})`,
+                  },
+                  "&:active img": {
+                    transform: `scale(${qrPressedScale})`,
+                  },
                 }}
               >
-                <img
+                <Box
+                  component="img"
                   src="/projects/smartnas/qr.svg"
-                  alt="QR Code"
-                  style={{ width: 80, height: 80 }}
+                  alt="SmartNas download QR"
+                  sx={{
+                    width: isQrFull ? "100%" : "auto",
+                    height: isQrFull ? "100%" : "auto",
+                    objectFit: isQrFull ? "cover" : "contain",
+                  }}
                 />
-                <Typography variant="xs14" sx={{ width: 80 }}>
-                  Scan to download
-                </Typography>
+                {!isQrFull && (
+                  <Typography
+                    variant="xs14"
+                    sx={{ width: 80, textAlign: "start" }}
+                  >
+                    Scan to download
+                  </Typography>
+                )}
               </Box>
 
               <Box display="flex" flexDirection="column" gap="12px">
-                <StoreDownloadCard
+                <DownloadCard
                   iconSrc="/projects/smartnas/appstore.svg"
                   label="Open App Store"
                 />
-                <StoreDownloadCard
+                <DownloadCard
                   iconSrc="/projects/smartnas/playstore.svg"
                   label="Open Play Store"
                 />
@@ -252,7 +329,7 @@ const ProjectDetailLayout: React.FC<ProjectDetailLayoutProps> = ({
   );
 };
 
-export const ProjectDetailSection: React.FC<ProjectDetailSectionProps> = ({
+export const DetailSection: React.FC<DetailSectionProps> = ({
   title,
   eyebrow,
   layout = "stacked",
@@ -302,4 +379,4 @@ export const ProjectDetailSection: React.FC<ProjectDetailSectionProps> = ({
   );
 };
 
-export default ProjectDetailLayout;
+export default DetailLayout;

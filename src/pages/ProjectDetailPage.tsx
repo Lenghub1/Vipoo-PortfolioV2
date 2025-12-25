@@ -2,11 +2,11 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Typography, Button } from "@mui/material";
 import { projects } from "../data/projects.data";
-import ProjectDetailSmartnas from "./ProjectDetailSmartnas";
-import ProjectDetailEccc from "./ProjectDetailEccc";
-import ProjectDetailFilelog from "./ProjectDetailFilelog";
-import ProjectDetailDefault from "./ProjectDetailDefault";
-import type { ProjectDetailComponentProps } from "../components/project-detail/ProjectDetailLayout";
+import DetailSmartnas from "./DetailSmartnas";
+import DetailEccc from "./DetailEccc";
+import DetailFilelog from "./DetailFilelog";
+import DetailDefault from "./DetailDefault";
+import type { DetailComponentProps } from "../components/project-detail/DetailLayout";
 
 const ProjectDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,13 +27,13 @@ const ProjectDetailPage: React.FC = () => {
 
   const relatedProjects = projects.filter((p) => p.id !== id).slice(0, 2);
 
-  const componentMap: Record<string, React.FC<ProjectDetailComponentProps>> = {
-    smartnas: ProjectDetailSmartnas,
-    "eccc-website": ProjectDetailEccc,
-    filelog: ProjectDetailFilelog,
+  const componentMap: Record<string, React.FC<DetailComponentProps>> = {
+    smartnas: DetailSmartnas,
+    "eccc-website": DetailEccc,
+    filelog: DetailFilelog,
   };
 
-  const DetailComponent = componentMap[project.id] ?? ProjectDetailDefault;
+  const DetailComponent = componentMap[project.id] ?? DetailDefault;
 
   return (
     <DetailComponent

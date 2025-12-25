@@ -1,17 +1,17 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import ProjectDetailLayout, {
-  ProjectDetailSection,
-  type ProjectDetailComponentProps,
-} from "../components/project-detail/ProjectDetailLayout";
+import DetailLayout, {
+  DetailSection,
+  type DetailComponentProps,
+} from "../components/project-detail/DetailLayout";
 
-const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
-  <ProjectDetailLayout
+const DetailEccc: React.FC<DetailComponentProps> = (props) => (
+  <DetailLayout
     {...props}
     maxWidth="1100px"
     bannerSrc="/projects/eccc/banner.webp"
   >
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Information architecture"
       title="From archives to living history"
     >
@@ -20,9 +20,9 @@ const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
       and press releases. Every collection page uses a dual-column layout so
       researchers can filter by case, year, and chamber without losing track of
       the content summary.
-    </ProjectDetailSection>
+    </DetailSection>
 
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Bilingual design"
       title="Khmer and English with synchronized URLs"
       layout="split"
@@ -58,9 +58,9 @@ const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
       mirrored typographic scales, Khmer-specific line height, and a shared slug
       generator so URLs stay consistent for press teams and international
       partners.
-    </ProjectDetailSection>
+    </DetailSection>
 
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Engagement"
       title="Visitor planning and outreach"
       layout="split"
@@ -85,8 +85,8 @@ const ProjectDetailEccc: React.FC<ProjectDetailComponentProps> = (props) => (
         Accessibility was validated against WCAG AA, covering contrast, focus
         states, and reduced-motion fallbacks for hero imagery.
       </Typography>
-    </ProjectDetailSection>
-  </ProjectDetailLayout>
+    </DetailSection>
+  </DetailLayout>
 );
 
-export default ProjectDetailEccc;
+export default DetailEccc;

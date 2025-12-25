@@ -2,9 +2,9 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { review } from "../data/smartnas.data";
 import { showcaseData } from "../data/smartnas.data";
-import ProjectDetailLayout, {
-  type ProjectDetailComponentProps,
-} from "../components/project-detail/ProjectDetailLayout";
+import DetailLayout, {
+  type DetailComponentProps,
+} from "../components/project-detail/DetailLayout";
 import DashedFadeDivider from "../components/dash/DashedFadeDivider";
 import { Button } from "@mui/material";
 import { CONTENT_MAX_WIDTH } from "../theme/layout";
@@ -382,10 +382,8 @@ const AppShowcase = () => {
   );
 };
 
-const ProjectDetailSmartnas: React.FC<ProjectDetailComponentProps> = (
-  props
-) => (
-  <ProjectDetailLayout
+const DetailSmartnas: React.FC<DetailComponentProps> = (props) => (
+  <DetailLayout
     {...props}
     bannerSrc="/projects/smartnas/banner.webp"
     maxWidth="1120px"
@@ -398,7 +396,7 @@ const ProjectDetailSmartnas: React.FC<ProjectDetailComponentProps> = (
     <UserReviewsCarousel />
     <DashedFadeDivider />
     <AppShowcase />
-  </ProjectDetailLayout>
+  </DetailLayout>
 );
 
-export default ProjectDetailSmartnas;
+export default DetailSmartnas;

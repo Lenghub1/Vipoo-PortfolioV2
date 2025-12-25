@@ -33,7 +33,7 @@ export const projects: Project[] = [
     description:
       "A ground-up redesign, crafted for users of all ages, combining accessibility, personalization, and ergonomic design.",
     image: "/projects/smartnas/smartnas.webp",
-    color: "#1a4d2e",
+    color: "#0E2712",
     details: {
       role: "Lead Designer",
       team: "Mobile App Team",

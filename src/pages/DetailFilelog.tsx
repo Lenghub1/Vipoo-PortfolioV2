@@ -1,17 +1,17 @@
 import React from "react";
 import { Box } from "@mui/material";
-import ProjectDetailLayout, {
-  ProjectDetailSection,
-  type ProjectDetailComponentProps,
-} from "../components/project-detail/ProjectDetailLayout";
+import DetailLayout, {
+  DetailSection,
+  type DetailComponentProps,
+} from "../components/project-detail/DetailLayout";
 
-const ProjectDetailFilelog: React.FC<ProjectDetailComponentProps> = (props) => (
-  <ProjectDetailLayout
+const DetailFilelog: React.FC<DetailComponentProps> = (props) => (
+  <DetailLayout
     {...props}
     maxWidth="1050px"
     bannerSrc="/projects/filelog/banner.webp"
   >
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Problem framing"
       title="Paper-first approvals with zero traceability"
     >
@@ -19,9 +19,9 @@ const ProjectDetailFilelog: React.FC<ProjectDetailComponentProps> = (props) => (
       No one could tell where a file stalled or who touched it last. Filelog
       digitized the entire workflow and gave administrators the ability to build
       routing rules without developer support.
-    </ProjectDetailSection>
+    </DetailSection>
 
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Workflow studio"
       title="Branching rules without code"
       layout="split"
@@ -41,9 +41,9 @@ const ProjectDetailFilelog: React.FC<ProjectDetailComponentProps> = (props) => (
       Filelog uses Lego-like steps (Review, Approve, Archive, Escalate) that can
       be rearranged. The studio previews SLA breaches and highlights bottlenecks
       so the project owners can simulate before publishing.
-    </ProjectDetailSection>
+    </DetailSection>
 
-    <ProjectDetailSection
+    <DetailSection
       eyebrow="Collaboration"
       title="Secure sharing and compliance"
       layout="split"
@@ -64,8 +64,8 @@ const ProjectDetailFilelog: React.FC<ProjectDetailComponentProps> = (props) => (
       auditors for a specific case or time period. Files inherit encryption keys
       per agency, and exports require MFA, which satisfied the national archive
       board.
-    </ProjectDetailSection>
-  </ProjectDetailLayout>
+    </DetailSection>
+  </DetailLayout>
 );
 
-export default ProjectDetailFilelog;
+export default DetailFilelog;
