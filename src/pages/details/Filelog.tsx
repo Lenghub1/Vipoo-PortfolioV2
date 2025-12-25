@@ -3,9 +3,9 @@ import { Box } from "@mui/material";
 import DetailLayout, {
   DetailSection,
   type DetailComponentProps,
-} from "../components/project-detail/DetailLayout";
+} from "../../components/project-detail/DetailLayout";
 
-const DetailFilelog: React.FC<DetailComponentProps> = (props) => (
+const Filelog: React.FC<DetailComponentProps> = (props) => (
   <DetailLayout
     {...props}
     maxWidth="1050px"
@@ -68,4 +68,4 @@ const DetailFilelog: React.FC<DetailComponentProps> = (props) => (
   </DetailLayout>
 );
 
-export default DetailFilelog;
+export default Filelog;

@@ -3,9 +3,9 @@ import { Box, Typography } from "@mui/material";
 import DetailLayout, {
   DetailSection,
   type DetailComponentProps,
-} from "../components/project-detail/DetailLayout";
+} from "../../components/project-detail/DetailLayout";
 
-const DetailEccc: React.FC<DetailComponentProps> = (props) => (
+const Eccc: React.FC<DetailComponentProps> = (props) => (
   <DetailLayout
     {...props}
     maxWidth="1100px"
@@ -89,4 +89,4 @@ const DetailEccc: React.FC<DetailComponentProps> = (props) => (
   </DetailLayout>
 );
 
-export default DetailEccc;
+export default Eccc;

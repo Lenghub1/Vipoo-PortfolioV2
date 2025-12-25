@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { review } from "../data/smartnas.data";
-import { showcaseData } from "../data/smartnas.data";
+import { review } from "../../data/smartnas.data";
+import { showcaseData } from "../../data/smartnas.data";
 import DetailLayout, {
   type DetailComponentProps,
-} from "../components/project-detail/DetailLayout";
-import DashedFadeDivider from "../components/dash/DashedFadeDivider";
+} from "../../components/project-detail/DetailLayout";
+import DashedFadeDivider from "../../components/dash/DashedFadeDivider";
 import { Button } from "@mui/material";
-import { CONTENT_MAX_WIDTH } from "../theme/layout";
+import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 
 export const RevampReasonSection = () => (
   <Box
@@ -382,7 +382,7 @@ const AppShowcase = () => {
   );
 };
 
-const DetailSmartnas: React.FC<DetailComponentProps> = (props) => (
+const Smartnas: React.FC<DetailComponentProps> = (props) => (
   <DetailLayout
     {...props}
     bannerSrc="/projects/smartnas/banner.webp"
@@ -399,4 +399,4 @@ const DetailSmartnas: React.FC<DetailComponentProps> = (props) => (
   </DetailLayout>
 );
 
-export default DetailSmartnas;
+export default Smartnas;

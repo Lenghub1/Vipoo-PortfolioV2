@@ -2,9 +2,9 @@ import React from "react";
 import DetailLayout, {
   DetailSection,
   type DetailComponentProps,
-} from "../components/project-detail/DetailLayout";
+} from "../../components/project-detail/DetailLayout";
 
-const DetailDefault: React.FC<DetailComponentProps> = (props) => {
+const Default: React.FC<DetailComponentProps> = (props) => {
   const { project } = props;
   return (
     <DetailLayout {...props} maxWidth="960px">
@@ -29,4 +29,4 @@ const DetailDefault: React.FC<DetailComponentProps> = (props) => {
   );
 };
 
-export default DetailDefault;
+export default Default;
