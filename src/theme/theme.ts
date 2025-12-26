@@ -90,6 +90,7 @@ export const theme = createTheme({
     t1: {
       fontFamily: serifStack,
       fontSize: "28px",
+      lineHeight: "36px",
       color: "#FFFFFF",
     },
     b1: {

@@ -54,7 +54,7 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
   </Box>
 );
 
-const QrDownloadSection: React.FC = () => {
+const QrDownloadCard: React.FC = () => {
   const [isQrFull, setIsQrFull] = React.useState(false);
 
   return (
@@ -135,4 +135,4 @@ const QrDownloadSection: React.FC = () => {
   );
 };
 
-export default QrDownloadSection;
+export default QrDownloadCard;
