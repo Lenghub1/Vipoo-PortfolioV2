@@ -51,19 +51,24 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
               </Typography>
 
               {projects?.map((project) => (
-                <Box key={project.id} display="flex" gap={1}>
+                <Box
+                  key={project.id}
+                  display="flex"
+                  gap={1}
+                  alignItems="center"
+                >
                   <Typography
                     variant="body2"
-                    sx={{ color: "text.secondary", mb: 1, cursor: "pointer" }}
+                    sx={{ color: "text.secondary", cursor: "pointer" }}
                   >
                     {project.title}
                   </Typography>
                   {!project.active && (
                     <Box
                       component="img"
-                      src="hello/lock.svg"
+                      src="global/lock.svg"
                       alt="lock Logo"
-                      sx={{ width: "18.44px", height: "18.44px", opacity: 0.5 }}
+                      sx={{ height: "12.65px", opacity: 0.5 }}
                     />
                   )}
                 </Box>
@@ -106,7 +111,7 @@ const Footer: React.FC<FooterProps> = ({ projects, contacts }) => {
 
               <Box
                 component="img"
-                src="hello/viphoulogo.svg"
+                src="global/viphoulogo.svg"
                 alt="Viphou Logo"
                 sx={{ width: "44px", height: "44px" }}
               />

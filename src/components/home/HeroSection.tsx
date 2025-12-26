@@ -7,11 +7,16 @@ const HeroSection: React.FC = () => {
   const duplicatedClients = [...clients, ...clients];
 
   return (
-    <Box id="hero-section" sx={{ py: { xs: 8, md: 12 } }}>
+    <Box
+      id="hero-section"
+      sx={{
+        py: { xs: 8, md: 12 },
+      }}
+    >
       <Typography
         variant="h1"
         sx={{
-          mb: 3,
+          mb: "24px",
           fontSize: { xs: "2.5rem", md: "3.5rem" },
         }}
       >
@@ -19,7 +24,7 @@ const HeroSection: React.FC = () => {
       </Typography>
       <Typography
         sx={{
-          mb: 4,
+          mb: "32px",
           fontSize: "19px",
           color: "text.secondary",
         }}
@@ -27,14 +32,12 @@ const HeroSection: React.FC = () => {
         He design and build digital products that connect clarity with craft &
         the belief it's one of the most malleable mediums we have.
       </Typography>
-
       <Box
         sx={{
+          mb: "40px",
           overflow: "hidden",
           whiteSpace: "nowrap",
-          mb: 6,
           position: "relative",
-          height: { xs: "60px", md: "80px" },
           "&::before, &::after": {
             content: '""',
             position: "absolute",
@@ -77,15 +80,11 @@ const HeroSection: React.FC = () => {
                 height: "100%",
                 maxWidth: "120px",
                 objectFit: "contain",
-                opacity: 0.6,
+                opacity: 1,
                 filter: "grayscale(100%)",
                 mx: { xs: 3, md: 5 },
                 transition: "0.3s ease",
                 verticalAlign: "middle",
-                "&:hover": {
-                  opacity: 1,
-                  filter: "grayscale(0%)",
-                },
               }}
             />
           ))}
@@ -94,7 +93,7 @@ const HeroSection: React.FC = () => {
 
       <FloatingCTAButton
         label="Get in touch"
-        iconSrc="hello/hi5.svg"
+        iconSrc="global/hi5.svg"
         appearance="solid"
         height={48}
         borderRadius={24}

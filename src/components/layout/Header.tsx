@@ -81,7 +81,14 @@ const Header: React.FC = () => {
         }}
       >
         <Link to="/" style={{ textDecoration: "none" }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              width: { xs: "auto", md: "200px" },
+            }}
+          >
             <Box
               component="img"
               src="/global/viphoulogo.svg"
@@ -143,11 +150,10 @@ const Header: React.FC = () => {
                   {link.icon && (
                     <Box
                       component="img"
-                      src={link.icon}
+                      src={"../../public/global/lock.svg"}
                       alt="icon"
                       sx={{
-                        width: 16,
-                        height: 16,
+                        height: 12.65,
                         opacity: isActive ? 1 : 0.5,
                         transition: "opacity 0.2s ease",
                       }}
@@ -159,39 +165,50 @@ const Header: React.FC = () => {
           })}
         </Box>
 
-        <FloatingCTAButton
-          label="Get in touch"
-          iconSrc="/global/hi5.svg"
-          appearance={heroInView ? "ghost" : "solid"}
-          height={40}
-          borderRadius={20}
-          paddingX={18}
+        <Box
           sx={{
-            fontSize: "0.9rem",
-            fontWeight: 600,
-            "& .cta-icon": {
-              display: heroInView ? "none" : "block",
-              opacity: heroInView ? 0 : 1,
-              transform: heroInView ? "translateX(8px)" : "translateX(16px)",
-              ...(heroInView
-                ? { animation: "none" }
-                : {
-                    animation: "ctaIconSlide 0.4s ease forwards",
-                  }),
+            width: {
+              xs: "auto",
+              md: "200px",
+              display: "flex",
+              justifyContent: "end",
             },
-            "@keyframes ctaIconSlide": {
-              "0%": { opacity: 0, transform: "translateX(16px)" },
-              "100%": { opacity: 1, transform: "translateX(0)" },
-            },
-            ...(heroInView && {
-              "&:hover": {
-                bgcolor: "#FFFFFF",
-                color: "#000000",
-                borderColor: "transparent",
-              },
-            }),
           }}
-        />
+        >
+          <FloatingCTAButton
+            label="Get in touch"
+            iconSrc="/global/hi5.svg"
+            appearance={heroInView ? "ghost" : "solid"}
+            height={40}
+            borderRadius={20}
+            paddingX={18}
+            sx={{
+              fontSize: "0.9rem",
+              fontWeight: 600,
+              "& .cta-icon": {
+                display: heroInView ? "none" : "block",
+                opacity: heroInView ? 0 : 1,
+                transform: heroInView ? "translateX(8px)" : "translateX(16px)",
+                ...(heroInView
+                  ? { animation: "none" }
+                  : {
+                      animation: "ctaIconSlide 0.4s ease forwards",
+                    }),
+              },
+              "@keyframes ctaIconSlide": {
+                "0%": { opacity: 0, transform: "translateX(16px)" },
+                "100%": { opacity: 1, transform: "translateX(0)" },
+              },
+              ...(heroInView && {
+                "&:hover": {
+                  bgcolor: "#FFFFFF",
+                  color: "#000000",
+                  border: "1px solid rgba(255,255,255,0)",
+                },
+              }),
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   );
