@@ -56,6 +56,8 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
 
 const QrDownloadCard: React.FC = () => {
   const [isQrFull, setIsQrFull] = React.useState(false);
+  const qrScale = 1;
+  const qrPressedScale = qrScale * 0.95;
 
   return (
     <Box
@@ -74,24 +76,20 @@ const QrDownloadCard: React.FC = () => {
           p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
           border: "1px solid rgba(255,255,255,0.12)",
           borderRadius: "12px",
-          width: isQrFull ? 156 : "auto",
-          minWidth: 104,
-          height: isQrFull ? 156 : "auto",
+
+          height: isQrFull ? "100%" : "auto",
           aspectRatio: isQrFull ? "1 / 1" : "auto",
-          overflow: "hidden",
+          overflow: isQrFull ? "hidden" : "visible",
           cursor: "pointer",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: isQrFull ? 0 : 1,
-          backgroundColor: isQrFull
-            ? "rgba(255,255,255,0.04)"
-            : "background.paper",
-          transition: "all 400ms cubic-bezier(0.4, 0, 0.2, 1)",
+          backgroundColor: isQrFull ? "background.default" : "background.paper",
+          transition: "background-color 300ms ease, transform 150ms ease",
           "&:hover": {
             backgroundColor: isQrFull
-              ? "rgba(255,255,255,0.12)"
+              ? "background.paper"
               : "rgba(255,255,255,0.08)",
           },
           "&:focus-visible": {
@@ -100,6 +98,14 @@ const QrDownloadCard: React.FC = () => {
           },
           "&:active": {
             transform: "scale(0.95)",
+            // transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
+          },
+          "& img": {
+            transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
+            transform: `scale(${qrScale})`,
+          },
+          "&:active img": {
+            transform: `scale(${qrPressedScale})`,
           },
         }}
       >
@@ -111,7 +117,6 @@ const QrDownloadCard: React.FC = () => {
             width: isQrFull ? "100%" : "auto",
             height: isQrFull ? "100%" : "auto",
             objectFit: isQrFull ? "cover" : "contain",
-            transition: "all 400ms cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         />
         {!isQrFull && (

@@ -150,7 +150,7 @@ const Header: React.FC = () => {
                   {link.icon && (
                     <Box
                       component="img"
-                      src={"../../public/global/lock.svg"}
+                      src={"/global/lock.svg"}
                       alt="icon"
                       sx={{
                         height: 12.65,

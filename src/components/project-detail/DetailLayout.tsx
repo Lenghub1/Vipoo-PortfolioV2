@@ -3,11 +3,8 @@ import { Box, Typography, Button } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import ProjectCard from "../home/ProjectCard";
 import type { Project } from "../../types/project.types";
-import {
-  CONTENT_MAX_WIDTH,
-  GLOBAL_PX,
-  SN_DOWNLOAD_P,
-} from "../../theme/layout";
+import { CONTENT_MAX_WIDTH, GLOBAL_PX } from "../../theme/layout";
+import QrDownloadCard from "../shared/QrDownloadSection";
 
 export interface DetailComponentProps {
   project: Project;
@@ -29,11 +26,6 @@ interface DetailLayoutProps extends DetailComponentProps {
   meta?: ProjectMetaItem[];
 }
 
-interface DownloadCardProps {
-  iconSrc: string;
-  label: string;
-}
-
 interface DetailSectionProps {
   title: string;
   eyebrow?: string;
@@ -49,53 +41,6 @@ const buildDefaultMeta = (project: Project): ProjectMetaItem[] => [
   { label: "Duration", value: project.details?.duration },
 ];
 
-const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
-  <Box
-    component="button"
-    type="button"
-    sx={{
-      bgcolor: "background.paper",
-      height: "100%",
-      p: `${SN_DOWNLOAD_P}px`,
-      border: "1px solid rgba(255,255,255,0.07)",
-      borderRadius: "12px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      cursor: "pointer",
-      transition: "background-color 200ms ease, transform 150ms ease",
-      "&:hover": { bgcolor: "rgba(255,255,255,0.08)" },
-      "&:focus-visible": {
-        outline: "2px solid rgba(255,255,255,0.4)",
-        outlineOffset: 2,
-      },
-      "&:active": {
-        transform: "scale(0.97)",
-      },
-    }}
-  >
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-      }}
-    >
-      <Box component="img" src={iconSrc} alt={label} sx={{ width: 16 }} />
-      <Box
-        component="img"
-        src="/global/arrow_up_right.svg"
-        alt="External link"
-        sx={{ width: 10, height: 10 }}
-      />
-    </Box>
-
-    <Typography variant="xs14" sx={{ whiteSpace: "nowrap" }}>
-      {label}
-    </Typography>
-  </Box>
-);
-
 const DetailLayout: React.FC<DetailLayoutProps> = ({
   project,
   relatedProjects,
@@ -108,10 +53,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
 }) => {
   const heroSrc = bannerSrc ?? project.image;
   const metaItems = meta ?? buildDefaultMeta(project);
-  const overlayColor = project.color ?? "#0B0C0D";
-  const [isQrFull, setIsQrFull] = React.useState(true);
-  const qrScale = isQrFull ? 1 : 0.85;
-  const qrPressedScale = qrScale * 0.95;
+  const accentColor = project.color ?? "#0B0C0D";
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -136,7 +78,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             height: { xs: "55%", md: "60%" },
             pointerEvents: "none",
             background: `linear-gradient(180deg, ${alpha(
-              overlayColor,
+              accentColor,
               0
             )} 0%, #0B0C0D 100%)`,
             overflow: "hidden",
@@ -179,8 +121,18 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             }}
           >
             <Typography
+              variant="b1"
+              sx={{
+                color: accentColor,
+                textTransform: "uppercase",
+                fontWeight: 700,
+              }}
+            >
+              Introducing
+            </Typography>
+            <Typography
               variant="h1"
-              sx={{ fontSize: { xs: "2.25rem", md: "3rem" } }}
+              sx={{ fontSize: { xs: "2.25rem", md: "3rem" }, mb: "20px" }}
             >
               {project.title}
             </Typography>
@@ -196,88 +148,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             </Typography>
           </Box>
 
-          {isQrcode && (
-            <Box
-              sx={{
-                display: "flex",
-                height: "156px",
-                gap: "12px",
-              }}
-            >
-              <Box
-                component="button"
-                type="button"
-                onClick={() => setIsQrFull((prev) => !prev)}
-                aria-pressed={isQrFull}
-                sx={{
-                  p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  borderRadius: "12px",
-
-                  height: isQrFull ? "100%" : "auto",
-                  aspectRatio: isQrFull ? "1 / 1" : "auto",
-                  overflow: isQrFull ? "hidden" : "visible",
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor: isQrFull ? "#000000" : "background.paper",
-                  transition:
-                    "background-color 300ms ease, transform 150ms ease",
-                  "&:hover": {
-                    backgroundColor: isQrFull
-                      ? "rgba(255,255,255,0.12)"
-                      : "rgba(255,255,255,0.08)",
-                  },
-                  "&:focus-visible": {
-                    outline: "2px solid rgba(255,255,255,0.5)",
-                    outlineOffset: 2,
-                  },
-                  "&:active": {
-                    transform: "scale(0.95)",
-                  },
-                  "& img": {
-                    transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
-                    transform: `scale(${qrScale})`,
-                  },
-                  "&:active img": {
-                    transform: `scale(${qrPressedScale})`,
-                  },
-                }}
-              >
-                <Box
-                  component="img"
-                  src="/projects/smartnas/qr.svg"
-                  alt="SmartNas download QR"
-                  sx={{
-                    width: isQrFull ? "100%" : "auto",
-                    height: isQrFull ? "100%" : "auto",
-                    objectFit: isQrFull ? "cover" : "contain",
-                  }}
-                />
-                {!isQrFull && (
-                  <Typography
-                    variant="xs14"
-                    sx={{ width: 80, textAlign: "start" }}
-                  >
-                    Scan to download
-                  </Typography>
-                )}
-              </Box>
-
-              <Box display="flex" flexDirection="column" gap="12px">
-                <DownloadCard
-                  iconSrc="/projects/smartnas/appstore.svg"
-                  label="Open App Store"
-                />
-                <DownloadCard
-                  iconSrc="/projects/smartnas/playstore.svg"
-                  label="Open Play Store"
-                />
-              </Box>
-            </Box>
-          )}
+          {isQrcode && <QrDownloadCard />}
         </Box>
 
         {metaItems.length > 0 && (
