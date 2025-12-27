@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { SN_DOWNLOAD_P } from "../../theme/layout";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 interface DownloadCardProps {
   iconSrc: string;
   label: string;
@@ -73,7 +73,7 @@ const QrDownloadCard: React.FC = () => {
         aria-pressed={isQrFull}
         transition={{
           layout: {
-            duration: 0.65,
+            duration: 0.3,
             ease: [0.215, 0.61, 0.355, 1],
           },
         }}
@@ -114,7 +114,7 @@ const QrDownloadCard: React.FC = () => {
           alt="SmartNas download QR"
           initial={false}
           transition={{
-            duration: 0.65,
+            duration: 0.3,
             ease: [0.215, 0.61, 0.355, 1],
           }}
           sx={{
