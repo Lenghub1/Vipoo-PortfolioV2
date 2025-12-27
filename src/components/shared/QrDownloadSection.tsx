@@ -150,7 +150,7 @@ const QrDownloadCard: React.FC = () => {
               alt="SmartNas download QR"
               initial={false}
               transition={{
-                duration: 0.65,
+                duration: 0.3,
                 ease: [0.215, 0.61, 0.355, 1],
               }}
               sx={{
