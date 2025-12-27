@@ -352,7 +352,6 @@ const Smartnas: React.FC<DetailComponentProps> = (props) => (
     <RevampReasonSection />
     <Divider />
     <AppShowcase />
-    <Divider />
     <TitleWithDesc
       title="Closing Thought"
       description="I'm proud to have led the redesign of SmartNas, transforming it into a user-centric platform that truly meets the needs of its diverse user base. This project reinforced my belief in the power of user research and iterative design in creating meaningful digital experiences. The new SmartNas not only enhances usability but also sets a new standard for how complex applications can be both functional and delightful."
