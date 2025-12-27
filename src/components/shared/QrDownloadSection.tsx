@@ -99,7 +99,6 @@ const QrDownloadCard: React.FC = () => {
     >
       {!isMobile && (
         <>
-          {" "}
           <Box
             component={motion.button}
             layout
