@@ -25,7 +25,6 @@ export const UserReviewsCarousel = () => {
         right: "50%",
         marginLeft: "-50vw",
         marginRight: "-50vw",
-        py: 4,
         overflow: "hidden",
 
         "&::before, &::after": {
@@ -54,7 +53,7 @@ export const UserReviewsCarousel = () => {
           display: "flex",
           gap: "12px",
           alignItems: "flex-start",
-          animation: "scrollReviews 40s linear infinite",
+          animation: "scrollReviews 32s linear infinite",
           willChange: "transform",
           "&:hover": { animationPlayState: "paused" },
           "@keyframes scrollReviews": {
@@ -118,8 +117,8 @@ const RevampReasonSection = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "48px" }}>
       <TitleWithDesc
-        title="TL;DR"
-        description="ECCC is a comprehensive platform for environmental data and climate change research, offering tools for scientists, policymakers, and the public to access and analyze climate information."
+        title="Why we decide to do the revamp"
+        description="SmartNas 3.0 started as a modular, flexible app, but years of added products, plans, and features caused it to drift from its original structure. Inconsistencies grew, navigation became harder, and the lack of a modern design system made the experience feel outdated and confusing for many users."
       />
       <UserReviewsCarousel />
     </Box>
@@ -353,6 +352,11 @@ const Smartnas: React.FC<DetailComponentProps> = (props) => (
     <RevampReasonSection />
     <Divider />
     <AppShowcase />
+    <Divider />
+    <TitleWithDesc
+      title="Closing Thought"
+      description="I'm proud to have led the redesign of SmartNas, transforming it into a user-centric platform that truly meets the needs of its diverse user base. This project reinforced my belief in the power of user research and iterative design in creating meaningful digital experiences. The new SmartNas not only enhances usability but also sets a new standard for how complex applications can be both functional and delightful."
+    />
   </DetailLayout>
 );
 

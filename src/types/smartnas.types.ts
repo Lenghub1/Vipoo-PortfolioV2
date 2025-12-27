@@ -5,6 +5,5 @@ export interface reviews {
 }
 export interface ShowcaseItem {
   src: string;
-
   label: string;
 }

@@ -4,6 +4,8 @@ declare module "@mui/material/styles" {
   interface TypographyVariants {
     caption1: React.CSSProperties;
     t1: React.CSSProperties;
+    t2: React.CSSProperties;
+    t3: React.CSSProperties;
     b1: React.CSSProperties;
     b2: React.CSSProperties;
     xs14?: React.CSSProperties;
@@ -12,8 +14,11 @@ declare module "@mui/material/styles" {
   interface TypographyVariantsOptions {
     caption1?: React.CSSProperties;
     t1?: React.CSSProperties;
+    t2?: React.CSSProperties;
+    t3?: React.CSSProperties;
     b1?: React.CSSProperties;
     b2?: React.CSSProperties;
+
     xs14?: React.CSSProperties;
   }
 }
@@ -22,6 +27,8 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     caption1: true;
     t1: true;
+    t2: true;
+    t3: true;
     b1: true;
     b2: true;
     xs14: true;
@@ -92,6 +99,21 @@ export const theme = createTheme({
       fontSize: "28px",
       lineHeight: "36px",
       color: "#FFFFFF",
+    },
+    t2: {
+      fontFamily: sansStack,
+      fontSize: "20px",
+      fontWeight: 500,
+      color: "text.primary",
+      textAlign: "center",
+      opacity: 0.7,
+    },
+    t3: {
+      fontFamily: serifStack,
+      fontSize: "20px",
+      color: "text.primary",
+      textAlign: "center",
+      opacity: 0.5,
     },
     b1: {
       fontFamily: sansStack,
