@@ -1,5 +1,11 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import ProjectCard from "../home/ProjectCard";
 import type { Project } from "../../types/project.types";
@@ -54,7 +60,8 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
   const heroSrc = bannerSrc ?? project.image;
   const metaItems = meta ?? buildDefaultMeta(project);
   const accentColor = project.color ?? "#0B0C0D";
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ position: "relative" }}>
@@ -112,7 +119,13 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           </Button>
         )}
 
-        <Box sx={{ display: "flex", gap: "32px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: isMobile ? "0" : "32px",
+            flexDirection: isMobile ? "column" : "row",
+          }}
+        >
           <Box
             sx={{
               display: "flex",
