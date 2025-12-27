@@ -272,7 +272,7 @@ const AppShowcase = () => {
           sx={{
             display: "grid",
             gridTemplateColumns: {
-              xs: "repeat(2, 1fr)",
+              xs: "repeat(1, 1fr)",
               md: "repeat(3, 1fr)",
             },
             gap: "100px 32px",
