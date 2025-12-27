@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { SN_DOWNLOAD_P } from "../../theme/layout";
-
+import { motion } from "framer-motion";
 interface DownloadCardProps {
   iconSrc: string;
   label: string;
@@ -56,8 +56,6 @@ const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
 
 const QrDownloadCard: React.FC = () => {
   const [isQrFull, setIsQrFull] = React.useState(false);
-  const qrScale = 1;
-  const qrPressedScale = qrScale * 0.95;
 
   return (
     <Box
@@ -68,57 +66,64 @@ const QrDownloadCard: React.FC = () => {
       }}
     >
       <Box
-        component="button"
+        component={motion.button}
+        layout
         type="button"
-        onClick={() => setIsQrFull((prev) => !prev)}
+        onClick={() => setIsQrFull((p) => !p)}
         aria-pressed={isQrFull}
+        transition={{
+          layout: {
+            duration: 0.65,
+            ease: [0.215, 0.61, 0.355, 1],
+          },
+        }}
         sx={{
           p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
           border: "1px solid rgba(255,255,255,0.12)",
-          borderRadius: "12px",
+          borderRadius: 4,
 
           height: isQrFull ? "100%" : "auto",
           aspectRatio: isQrFull ? "1 / 1" : "auto",
-          overflow: isQrFull ? "hidden" : "visible",
+          overflow: "hidden",
           cursor: "pointer",
+
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
+
           backgroundColor: isQrFull ? "background.default" : "background.paper",
-          transition: "background-color 300ms ease, transform 150ms ease",
+          transition: "background-color 300ms ease",
+
           "&:hover": {
             backgroundColor: isQrFull
               ? "background.paper"
               : "rgba(255,255,255,0.08)",
           },
+
           "&:focus-visible": {
             outline: "2px solid rgba(255,255,255,0.5)",
             outlineOffset: 2,
           },
-          "&:active": {
-            transform: "scale(0.95)",
-            // transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
-          },
-          "& img": {
-            transition: "transform 300ms cubic-bezier(.215,.61,.355,1)",
-            transform: `scale(${qrScale})`,
-          },
-          "&:active img": {
-            transform: `scale(${qrPressedScale})`,
-          },
         }}
       >
         <Box
-          component="img"
+          component={motion.img}
+          layout
           src="/projects/smartnas/qr.svg"
           alt="SmartNas download QR"
+          initial={false}
+          transition={{
+            duration: 0.65,
+            ease: [0.215, 0.61, 0.355, 1],
+          }}
           sx={{
             width: isQrFull ? "100%" : "auto",
             height: isQrFull ? "100%" : "auto",
             objectFit: isQrFull ? "cover" : "contain",
           }}
         />
+
         {!isQrFull && (
           <Typography variant="xs14" sx={{ width: 80, textAlign: "start" }}>
             Scan to download
