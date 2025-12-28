@@ -15,9 +15,9 @@ const ProjectsGrid: React.FC = () => {
           display: "grid",
           gridTemplateColumns: {
             xs: "1fr",
-            md: "repeat(2, 1fr)",
+            sm: "repeat(2, 1fr)",
           },
-          columnGap: "32px",
+          columnGap: { sm: "24px", md: "32px" },
           rowGap: "72px",
         }}
       >

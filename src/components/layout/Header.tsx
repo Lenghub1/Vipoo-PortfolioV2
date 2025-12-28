@@ -60,6 +60,7 @@ const Header: React.FC = () => {
         width: "100%",
         height: "64px",
         position: "sticky",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         top: 0,
         bgcolor: "background.default",
         zIndex: 1000,
@@ -117,7 +118,7 @@ const Header: React.FC = () => {
           </Box>
         </Link>
 
-        <Box sx={{ display: { xs: "none", md: "flex" }, gap: 4 }}>
+        <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 4 }}>
           {navigationLinks.map((link) => {
             const isActive = location.pathname === link.path;
 

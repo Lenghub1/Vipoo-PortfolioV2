@@ -18,6 +18,10 @@ interface EcccMediaSectionProps {
 const VisitWebsite = () => {
   return (
     <Box
+      component="a"
+      href="https://eccc.gov.kh/en"
+      target="_blank"
+      rel="noopener noreferrer"
       sx={{
         width: "100%",
         height: "120px",

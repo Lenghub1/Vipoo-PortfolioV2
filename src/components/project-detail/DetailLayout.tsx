@@ -143,7 +143,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             sx={{
               display: "grid",
               gridTemplateColumns: {
-                xs: "repeat(2, 1fr)",
+                xs: "repeat(1, 1fr)",
                 sm: "repeat(4, 1fr)",
               },
               gap: 4,

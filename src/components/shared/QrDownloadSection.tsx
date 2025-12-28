@@ -6,40 +6,62 @@ import { motion } from "framer-motion";
 interface DownloadCardProps {
   iconSrc: string;
   label: string;
+  href: string;
 }
-const MobileStoreButton: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
+const APP_STORE_URL = "https://apps.apple.com/us/app/smartnas/id1205849979";
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=net.omobio.smartsc&hl=en";
+
+const MobileStoreButton: React.FC<DownloadCardProps> = ({
+  iconSrc,
+  label,
+  href,
+}) => (
   <Box
-    component="button"
-    type="button"
+    component="a"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     width="100%"
     sx={{
+      textDecoration: "none",
       justifyContent: "center",
       width: "100%",
-      height: 42,
+      height: 41,
+      backgroundColor: "#FFFFFF",
       borderRadius: "12px",
       display: "flex",
       alignItems: "center",
       gap: "12px",
       cursor: "pointer",
-      "&:active": { transform: "scale(0.97)" },
+      color: "inherit",
+      transition: "background-color 200ms ease, transform 150ms ease",
+      "&:active": { transform: "scale(0.98)" },
     }}
   >
     <Box
       component="img"
       src={iconSrc}
       alt={label}
-      sx={{ width: 16, filter: "brightness(0)" }}
+      sx={{ width: 18, filter: "brightness(0)" }}
     />
     <Typography variant="xs14" fontWeight={500} color="black">
       {label}
     </Typography>
   </Box>
 );
-const DownloadCard: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
+const DownloadCard: React.FC<DownloadCardProps> = ({
+  iconSrc,
+  label,
+  href,
+}) => (
   <Box
-    component="button"
-    type="button"
+    component="a"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
     sx={{
+      textDecoration: "none",
       bgcolor: "background.paper",
       height: "100%",
       p: `${SN_DOWNLOAD_P}px`,
@@ -90,7 +112,7 @@ const QrDownloadCard: React.FC = () => {
     <Box
       sx={{
         display: "flex",
-        height: { xs: "fit-content", sm: "auto" },
+        height: { xs: "fit-content", sm: "156px" },
         gap: "12px",
       }}
     >
@@ -113,10 +135,12 @@ const QrDownloadCard: React.FC = () => {
               p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
               border: "1px solid rgba(255,255,255,0.12)",
               borderRadius: 4,
+
               height: isQrFull ? "100%" : "auto",
               aspectRatio: isQrFull ? "1 / 1" : "auto",
               overflow: "hidden",
               cursor: "pointer",
+
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -169,10 +193,12 @@ const QrDownloadCard: React.FC = () => {
             <DownloadCard
               iconSrc="/projects/smartnas/appstore.svg"
               label="Open App Store"
+              href={APP_STORE_URL}
             />
             <DownloadCard
               iconSrc="/projects/smartnas/playstore.svg"
               label="Open Play Store"
+              href={PLAY_STORE_URL}
             />
           </Box>
         </>
@@ -189,10 +215,12 @@ const QrDownloadCard: React.FC = () => {
           <MobileStoreButton
             iconSrc="/projects/smartnas/appstore.svg"
             label="Download on the App Store"
+            href={APP_STORE_URL}
           />
           <MobileStoreButton
             iconSrc="/projects/smartnas/playstore.svg"
-            label="Download on the App Store"
+            label="Download on the Play Store"
+            href={PLAY_STORE_URL}
           />
         </Box>
       )}
