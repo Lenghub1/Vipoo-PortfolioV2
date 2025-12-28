@@ -1,5 +1,6 @@
-import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Button, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { review } from "../../data/smartnas.data";
 import { showcaseData } from "../../data/smartnas.data";
 import DetailLayout, {
@@ -55,7 +56,6 @@ export const UserReviewsCarousel = () => {
           alignItems: "flex-start",
           animation: "scrollReviews 32s linear infinite",
           willChange: "transform",
-          "&:hover": { animationPlayState: "paused" },
           "@keyframes scrollReviews": {
             "0%": { transform: "translateX(0)" },
             "100%": { transform: "translateX(-50%)" },
@@ -71,6 +71,7 @@ export const UserReviewsCarousel = () => {
               bgcolor: "#FFFFFF1A",
               borderRadius: "12px",
               p: "12px 16px",
+              userSelect: "none",
             }}
           >
             <Box sx={{ display: "flex" }}>
@@ -125,57 +126,198 @@ const RevampReasonSection = () => {
   );
 };
 
-const DemoSection = () => (
-  <Box
-    sx={{
-      position: "relative",
-      borderRadius: "12px",
-      overflow: "hidden",
-      minHeight: "532px",
-      backgroundImage: "url(/projects/smartnas/demo.webp)",
-      backgroundSize: "cover",
-      backgroundPosition: "start",
-    }}
-  >
-    <Box
-      sx={{
-        position: "absolute",
-        display: "flex",
-        flexDirection: "column",
-        left: { md: "28px" },
-        bottom: { md: "28px" },
-        maxWidth: 400,
-        borderRadius: 3,
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <Button
+const DemoSection = () => {
+  const [isVideoMounted, setIsVideoMounted] = useState(false);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const animationDuration = 300;
+
+  const handleOpenDemo = () => {
+    if (isVideoMounted) {
+      setIsVideoVisible(true);
+      return;
+    }
+    setIsVideoMounted(true);
+  };
+
+  const handleCloseDemo = () => {
+    setIsVideoVisible(false);
+  };
+
+  useEffect(() => {
+    if (isVideoMounted) {
+      const frame = requestAnimationFrame(() => setIsVideoVisible(true));
+      return () => cancelAnimationFrame(frame);
+    }
+    return undefined;
+  }, [isVideoMounted]);
+
+  useEffect(() => {
+    if (!isVideoVisible && isVideoMounted) {
+      const timeoutId = window.setTimeout(() => {
+        setIsVideoMounted(false);
+      }, animationDuration);
+      return () => window.clearTimeout(timeoutId);
+    }
+    return undefined;
+  }, [isVideoVisible, isVideoMounted, animationDuration]);
+
+  return (
+    <>
+      <Box
         sx={{
-          width: "fit-content",
-          bgcolor: "#FFFFFF",
-          color: "#000000",
+          position: "relative",
           borderRadius: "12px",
-          px: "16px",
-          py: "8px",
-          mb: "24px",
-          fontWeight: 600,
-          fontSize: "15px",
-          lineHeight: "24px",
+          overflow: "hidden",
+          minHeight: "532px",
         }}
       >
-        View demo
-      </Button>
-      <Typography variant="b1">
-        A homepage designed around what truly matters.
-      </Typography>
-      <Typography variant="b2">
-        puts each user's essential data front and center, balance, plans,
-        benefits, and shortcuts, all personalized, accessible, and easy to
-        understand at a glance.
-      </Typography>
-    </Box>
-  </Box>
-);
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "url(/projects/smartnas/demo.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            borderRadius: 3,
+            p: "28px",
+            overflow: "hidden",
+            zIndex: 1,
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(180deg, rgba(14, 39, 18, 0) 60%, #0E2712 100%)",
+              opacity: 0.95,
+              zIndex: 0,
+              pointerEvents: "none",
+              display: { xs: "block", md: "none" },
+            },
+            "& > *": {
+              position: "relative",
+              zIndex: 1,
+            },
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              height: "100%",
+              maxWidth: "400px",
+
+              overflow: "hidden",
+              zIndex: 1,
+            }}
+          >
+            <Button
+              disableRipple
+              onClick={handleOpenDemo}
+              sx={{
+                width: "fit-content",
+                bgcolor: "#FFFFFF",
+                color: "#000000",
+                borderRadius: "12px",
+                px: "16px",
+                py: "8px",
+                mb: "24px",
+                fontWeight: 600,
+                fontSize: "15px",
+                lineHeight: "24px",
+                transition: "transform 150ms ease",
+                "&:active": {
+                  transform: "scale(0.97)",
+                },
+              }}
+            >
+              View demo
+            </Button>
+            <Typography variant="b1">
+              A homepage designed around what truly matters.
+            </Typography>
+            <Typography variant="b2">
+              puts each user's essential data front and center, balance, plans,
+              benefits, and shortcuts, all personalized, accessible, and easy to
+              understand at a glance.
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {isVideoMounted && (
+        <Box
+          onClick={handleCloseDemo}
+          sx={{
+            position: "fixed",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: isVideoVisible ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0)",
+            transition: "background-color 300ms cubic-bezier(.215,.61,.355,1)",
+            px: 2,
+            zIndex: (theme) => theme.zIndex.modal + 1,
+          }}
+        >
+          <Box
+            onClick={(event) => event.stopPropagation()}
+            sx={{
+              position: "relative",
+              width: { xs: "100%", md: "80%" },
+              maxWidth: "1280px",
+              borderRadius: "16px",
+              overflow: "hidden",
+              boxShadow: "0px 10px 40px rgba(0,0,0,0.4)",
+              transform: isVideoVisible ? "scale(1)" : "scale(0.9)",
+              opacity: isVideoVisible ? 1 : 0,
+              transition:
+                "transform 300ms cubic-bezier(.215, .61, .355, 1), opacity 300ms cubic-bezier(.215, .61, .355, 1)",
+              willChange: "transform, opacity",
+            }}
+          >
+            <IconButton
+              aria-label="Close demo video"
+              onClick={handleCloseDemo}
+              sx={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                color: "#fff",
+                bgcolor: "rgba(0,0,0,0.6)",
+                "&:hover": {
+                  bgcolor: "rgba(0,0,0,0.8)",
+                },
+                zIndex: 1,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            <Box
+              component="video"
+              src="/projects/smartnas/screenRecord.mp4"
+              controls
+              autoPlay
+              sx={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+                backgroundColor: "#000",
+              }}
+            />
+          </Box>
+        </Box>
+      )}
+    </>
+  );
+};
 
 export const CustomerTestimonialCard = () => (
   <Box
@@ -192,43 +334,18 @@ export const CustomerTestimonialCard = () => (
     <Box
       sx={{
         position: "relative",
-        zIndex: 10,
+        zIndex: 0,
         display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-        gap: { xs: 4, md: 6 },
-        p: "28px",
+        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+        gap: { xs: 0, md: 4 },
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          height: "322px",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Typography variant="t1" sx={{ lineHeight: "36px" }}>
-          I open SmartNas every day, but it still shows me things I never use.
-          Why doesn't the app focus on what matters to me?
-        </Typography>
-        <Typography
-          sx={{
-            color: "#9ca3af",
-            fontSize: "16px",
-            fontWeight: 400,
-          }}
-        >
-          — Customer, 2023
-        </Typography>
-      </Box>
-
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: -20,
-          right: 100,
-          scale: 1.2,
+          position: { xs: "relative", sm: "absolute" },
+          top: { xs: 0, sm: 50 },
+          right: { xs: 0, sm: 70 },
+          scale: { xs: 1, sm: 1.3 },
           justifyContent: { xs: "center", md: "flex-end" },
         }}
       >
@@ -240,10 +357,35 @@ export const CustomerTestimonialCard = () => (
             width: "100%",
             maxWidth: "761px",
             height: "322px",
-            objectFit: "contain",
+            objectFit: { xs: "contain", sm: "cover" },
             display: "block",
           }}
         />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          height: { xs: "fit-content", sm: "322px" },
+          justifyContent: "flex-end",
+          p: "28px",
+          mt: { xs: "-28px", sm: 0 },
+        }}
+      >
+        <Typography variant="t1" sx={{ lineHeight: "36px" }}>
+          I open SmartNas every day, but it still shows me things I never use.
+          Why doesn't the app focus on what matters to me?
+        </Typography>
+        <Typography
+          sx={{
+            color: "text.secondary",
+            fontSize: "16px",
+            fontWeight: 400,
+          }}
+        >
+          — Customer, 2023
+        </Typography>
       </Box>
     </Box>
   </Box>
@@ -273,6 +415,7 @@ const AppShowcase = () => {
             display: "grid",
             gridTemplateColumns: {
               xs: "repeat(1, 1fr)",
+              sm: "repeat(2, 1fr)",
               md: "repeat(3, 1fr)",
             },
             gap: "100px 32px",
@@ -352,6 +495,7 @@ const Smartnas: React.FC<DetailComponentProps> = (props) => (
     <RevampReasonSection />
     <Divider />
     <AppShowcase />
+    <Divider />
     <TitleWithDesc
       title="Closing Thought"
       description="I'm proud to have led the redesign of SmartNas, transforming it into a user-centric platform that truly meets the needs of its diverse user base. This project reinforced my belief in the power of user research and iterative design in creating meaningful digital experiences. The new SmartNas not only enhances usability but also sets a new standard for how complex applications can be both functional and delightful."

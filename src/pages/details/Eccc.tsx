@@ -24,6 +24,9 @@ const VisitWebsite = () => {
         position: "relative",
         borderRadius: "12px",
         overflow: "hidden",
+        transition: "transform 150ms ease",
+        userSelect: "none",
+        WebkitUserSelect: "none",
         "&:hover ": {
           cursor: "pointer",
         },
@@ -41,6 +44,9 @@ const VisitWebsite = () => {
             transform: "none",
           },
         },
+        "&:active": {
+          transform: "scale(0.97)",
+        },
       }}
     >
       <Box
@@ -50,7 +56,7 @@ const VisitWebsite = () => {
         alt="soilder's watching the smoky horizon"
         sx={{
           position: "absolute",
-          top: "-170%",
+          top: { xs: "-20%", sm: "-170%" },
           width: "100%",
           height: "auto",
           objectFit: "cover",
@@ -176,7 +182,7 @@ const EcccMediaSection: React.FC<EcccMediaSectionProps> = ({
           display: "flex",
           flexDirection: "column",
           width: "100%",
-          maxWidth: { xs: "420px", md: "900px" },
+          maxWidth: "900px",
           mx: "auto",
         }}
       >

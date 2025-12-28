@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import ProjectCard from "../home/ProjectCard";
 import type { Project } from "../../types/project.types";
@@ -50,8 +44,6 @@ const buildDefaultMeta = (project: Project): ProjectMetaItem[] => [
 const DetailLayout: React.FC<DetailLayoutProps> = ({
   project,
   relatedProjects,
-  onBack,
-  allowBack,
   bannerSrc,
   meta,
   isQrcode = false,
@@ -60,8 +52,6 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
   const heroSrc = bannerSrc ?? project.image;
   const metaItems = meta ?? buildDefaultMeta(project);
   const accentColor = project.color ?? "#0B0C0D";
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ position: "relative" }}>
@@ -71,7 +61,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           alt={`${project.title} banner`}
           sx={{
             width: "100%",
-            height: { xs: 320, md: 560 },
+            height: 560,
             objectFit: "cover",
             display: "block",
           }}
@@ -82,7 +72,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             left: 0,
             right: 0,
             bottom: 0,
-            height: { xs: "55%", md: "60%" },
+            height: "60%",
             pointerEvents: "none",
             background: `linear-gradient(180deg, ${alpha(
               accentColor,
@@ -103,27 +93,14 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           px: `${GLOBAL_PX}px`,
           display: "flex",
           flexDirection: "column",
-          gap: { xs: 4, md: "80px" },
+          gap: "80px",
         }}
       >
-        {allowBack && (
-          <Button
-            onClick={onBack}
-            sx={{
-              alignSelf: "flex-start",
-              color: "text.secondary",
-              "&:hover": { color: "white" },
-            }}
-          >
-            ← Back
-          </Button>
-        )}
-
         <Box
           sx={{
             display: "flex",
-            gap: isMobile ? "0" : "32px",
-            flexDirection: isMobile ? "column" : "row",
+            gap: "32px",
+            flexDirection: { xs: "column", sm: "row", md: "row" },
           }}
         >
           <Box
@@ -143,18 +120,15 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             >
               Introducing
             </Typography>
-            <Typography
-              variant="h1"
-              sx={{ fontSize: { xs: "2.25rem", md: "3rem" }, mb: "20px" }}
-            >
+            <Typography variant="h1" sx={{ mb: "20px" }}>
               {project.title}
             </Typography>
 
             <Typography
               sx={{
                 color: "text.secondary",
-                fontSize: "20px",
-                lineHeight: "26px",
+                fontSize: "18px",
+                lineHeight: "22px",
               }}
             >
               {project.description}
@@ -170,20 +144,17 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
               display: "grid",
               gridTemplateColumns: {
                 xs: "repeat(2, 1fr)",
-                md: "repeat(4, 1fr)",
+                sm: "repeat(4, 1fr)",
               },
               gap: 4,
             }}
           >
             {metaItems.map((item) => (
               <Box key={item.label}>
-                <Typography
-                  variant="overline"
-                  sx={{ color: "text.secondary", mb: 1 }}
-                >
-                  {item.label}
+                <Typography sx={{ fontWeight: "500" }}>{item.label}</Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                  {item.value}
                 </Typography>
-                <Typography>{item.value}</Typography>
               </Box>
             ))}
           </Box>

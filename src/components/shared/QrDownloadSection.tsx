@@ -15,23 +15,20 @@ const MobileStoreButton: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
     sx={{
       justifyContent: "center",
       width: "100%",
-      height: 41,
-
+      height: 42,
       borderRadius: "12px",
-
       display: "flex",
       alignItems: "center",
       gap: "12px",
-
       cursor: "pointer",
-      "&:active": { transform: "scale(0.98)" },
+      "&:active": { transform: "scale(0.97)" },
     }}
   >
     <Box
       component="img"
       src={iconSrc}
       alt={label}
-      sx={{ width: 22, filter: "brightness(0)" }}
+      sx={{ width: 16, filter: "brightness(0)" }}
     />
     <Typography variant="xs14" fontWeight={500} color="black">
       {label}
@@ -93,7 +90,7 @@ const QrDownloadCard: React.FC = () => {
     <Box
       sx={{
         display: "flex",
-        height: "156px",
+        height: { xs: "fit-content", sm: "auto" },
         gap: "12px",
       }}
     >
@@ -116,12 +113,10 @@ const QrDownloadCard: React.FC = () => {
               p: isQrFull ? 0 : `${SN_DOWNLOAD_P}px`,
               border: "1px solid rgba(255,255,255,0.12)",
               borderRadius: 4,
-
               height: isQrFull ? "100%" : "auto",
               aspectRatio: isQrFull ? "1 / 1" : "auto",
               overflow: "hidden",
               cursor: "pointer",
-
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
