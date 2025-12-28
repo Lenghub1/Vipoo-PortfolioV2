@@ -19,10 +19,10 @@ export const UserReviewsCarousel = () => {
   ];
   return (
     <Box
-        sx={{
-          width: "99vw",
-          position: "relative",
-          left: "50%",
+      sx={{
+        width: "99vw",
+        position: "relative",
+        left: "50%",
         right: "50%",
         marginLeft: "-50vw",
         marginRight: "-50vw",
@@ -169,53 +169,86 @@ const DemoSection = () => {
           borderRadius: "12px",
           overflow: "hidden",
           minHeight: "532px",
-          backgroundImage: "url(/projects/smartnas/demo.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "start",
         }}
       >
         <Box
           sx={{
             position: "absolute",
-            display: "flex",
-            flexDirection: "column",
-            left: { md: "28px" },
-            bottom: { md: "28px" },
-            maxWidth: 400,
+            inset: 0,
+            backgroundImage: "url(/projects/smartnas/demo.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
             borderRadius: 3,
-            backdropFilter: "blur(8px)",
+            p: "28px",
+            overflow: "hidden",
+            zIndex: 1,
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(180deg, rgba(14, 39, 18, 0) 60%, #0E2712 100%)",
+              opacity: 0.95,
+              zIndex: 0,
+              pointerEvents: "none",
+              display: { xs: "block", md: "none" },
+            },
+            "& > *": {
+              position: "relative",
+              zIndex: 1,
+            },
           }}
         >
-          <Button
-            disableRipple
-            onClick={handleOpenDemo}
+          <Box
             sx={{
-              width: "fit-content",
-              bgcolor: "#FFFFFF",
-              color: "#000000",
-              borderRadius: "12px",
-              px: "16px",
-              py: "8px",
-              mb: "24px",
-              fontWeight: 600,
-              fontSize: "15px",
-              lineHeight: "24px",
-              transition: "transform 150ms ease",
-              "&:active": {
-                transform: "scale(0.97)",
-              },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              height: "100%",
+              maxWidth: "400px",
+
+              overflow: "hidden",
+              zIndex: 1,
             }}
           >
-            View demo
-          </Button>
-          <Typography variant="b1">
-            A homepage designed around what truly matters.
-          </Typography>
-          <Typography variant="b2">
-            puts each user's essential data front and center, balance, plans,
-            benefits, and shortcuts, all personalized, accessible, and easy to
-            understand at a glance.
-          </Typography>
+            <Button
+              disableRipple
+              onClick={handleOpenDemo}
+              sx={{
+                width: "fit-content",
+                bgcolor: "#FFFFFF",
+                color: "#000000",
+                borderRadius: "12px",
+                px: "16px",
+                py: "8px",
+                mb: "24px",
+                fontWeight: 600,
+                fontSize: "15px",
+                lineHeight: "24px",
+                transition: "transform 150ms ease",
+                "&:active": {
+                  transform: "scale(0.97)",
+                },
+              }}
+            >
+              View demo
+            </Button>
+            <Typography variant="b1">
+              A homepage designed around what truly matters.
+            </Typography>
+            <Typography variant="b2">
+              puts each user's essential data front and center, balance, plans,
+              benefits, and shortcuts, all personalized, accessible, and easy to
+              understand at a glance.
+            </Typography>
+          </Box>
         </Box>
       </Box>
 
@@ -238,7 +271,7 @@ const DemoSection = () => {
             onClick={(event) => event.stopPropagation()}
             sx={{
               position: "relative",
-              width: { xs: "90%", md: "80%" },
+              width: { xs: "100%", md: "80%" },
               maxWidth: "1280px",
               borderRadius: "16px",
               overflow: "hidden",
@@ -301,43 +334,18 @@ export const CustomerTestimonialCard = () => (
     <Box
       sx={{
         position: "relative",
-        zIndex: 10,
+        zIndex: 0,
         display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
-        gap: { xs: 4, md: 6 },
-        p: "28px",
+        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+        gap: { xs: 0, md: 4 },
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          height: "322px",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Typography variant="t1" sx={{ lineHeight: "36px" }}>
-          I open SmartNas every day, but it still shows me things I never use.
-          Why doesn't the app focus on what matters to me?
-        </Typography>
-        <Typography
-          sx={{
-            color: "#9ca3af",
-            fontSize: "16px",
-            fontWeight: 400,
-          }}
-        >
-          — Customer, 2023
-        </Typography>
-      </Box>
-
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: -20,
-          right: 100,
-          scale: 1.2,
+          position: { xs: "relative", sm: "absolute" },
+          top: { xs: 0, sm: 50 },
+          right: { xs: 0, sm: 70 },
+          scale: { xs: 1, sm: 1.3 },
           justifyContent: { xs: "center", md: "flex-end" },
         }}
       >
@@ -349,10 +357,35 @@ export const CustomerTestimonialCard = () => (
             width: "100%",
             maxWidth: "761px",
             height: "322px",
-            objectFit: "contain",
+            objectFit: { xs: "contain", sm: "cover" },
             display: "block",
           }}
         />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          height: { xs: "fit-content", sm: "322px" },
+          justifyContent: "flex-end",
+          p: "28px",
+          mt: { xs: "-28px", sm: 0 },
+        }}
+      >
+        <Typography variant="t1" sx={{ lineHeight: "36px" }}>
+          I open SmartNas every day, but it still shows me things I never use.
+          Why doesn't the app focus on what matters to me?
+        </Typography>
+        <Typography
+          sx={{
+            color: "text.secondary",
+            fontSize: "16px",
+            fontWeight: 400,
+          }}
+        >
+          — Customer, 2023
+        </Typography>
       </Box>
     </Box>
   </Box>
@@ -382,6 +415,7 @@ const AppShowcase = () => {
             display: "grid",
             gridTemplateColumns: {
               xs: "repeat(1, 1fr)",
+              sm: "repeat(2, 1fr)",
               md: "repeat(3, 1fr)",
             },
             gap: "100px 32px",

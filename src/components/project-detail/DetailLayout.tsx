@@ -93,7 +93,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           px: `${GLOBAL_PX}px`,
           display: "flex",
           flexDirection: "column",
-          gap: { xs: 4, md: "80px" },
+          gap: "80px",
         }}
       >
         <Box

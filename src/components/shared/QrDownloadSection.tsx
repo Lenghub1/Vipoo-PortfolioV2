@@ -90,7 +90,7 @@ const QrDownloadCard: React.FC = () => {
     <Box
       sx={{
         display: "flex",
-        height: { xs: "fit-content", md: "156px" },
+        height: { xs: "fit-content", sm: "auto" },
         gap: "12px",
       }}
     >
