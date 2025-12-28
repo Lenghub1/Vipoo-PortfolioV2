@@ -16,15 +16,12 @@ const MobileStoreButton: React.FC<DownloadCardProps> = ({ iconSrc, label }) => (
       justifyContent: "center",
       width: "100%",
       height: 41,
-
       borderRadius: "12px",
-
       display: "flex",
       alignItems: "center",
       gap: "12px",
-
       cursor: "pointer",
-      "&:active": { transform: "scale(0.98)" },
+      "&:active": { transform: "scale(0.97)" },
     }}
   >
     <Box
