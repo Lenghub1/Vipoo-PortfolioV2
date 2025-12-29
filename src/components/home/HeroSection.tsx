@@ -5,12 +5,44 @@ import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const HeroSection: React.FC = () => {
   const duplicatedClients = [...clients, ...clients];
+  const [titleVisible, setTitleVisible] = React.useState(false);
+  const [descriptionVisible, setDescriptionVisible] = React.useState(false);
+  const [marqueeVisible, setMarqueeVisible] = React.useState(false);
+  const [ctaVisible, setCtaVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    setTitleVisible(false);
+    setDescriptionVisible(false);
+    setMarqueeVisible(false);
+    setCtaVisible(false);
+
+    if (typeof window === "undefined") {
+      setTitleVisible(true);
+      setDescriptionVisible(true);
+      setMarqueeVisible(true);
+      setCtaVisible(true);
+      return;
+    }
+
+    const titleTimer = window.setTimeout(() => setTitleVisible(true), 80);
+    const descTimer = window.setTimeout(() => setDescriptionVisible(true), 160);
+    const marqueeTimer = window.setTimeout(() => setMarqueeVisible(true), 240);
+    const ctaTimer = window.setTimeout(() => setCtaVisible(true), 420);
+
+    return () => {
+      window.clearTimeout(titleTimer);
+      window.clearTimeout(descTimer);
+      window.clearTimeout(marqueeTimer);
+      window.clearTimeout(ctaTimer);
+    };
+  }, []);
 
   return (
     <Box
       id="hero-section"
       sx={{
-        py: { xs: 8, md: 12 },
+        pt: { xs: 8, md: 12 },
+        pb: { xs: 12, md: "200px" },
       }}
     >
       <Typography
@@ -18,6 +50,11 @@ const HeroSection: React.FC = () => {
         sx={{
           mb: "24px",
           fontSize: { xs: "2.5rem", md: "3.5rem" },
+          opacity: titleVisible ? 1 : 0,
+          filter: titleVisible ? "blur(0px)" : "blur(10px)",
+          transform: titleVisible ? "translateY(0)" : "translateY(16px)",
+          transition:
+            "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
         }}
       >
         This is viphou.
@@ -27,6 +64,11 @@ const HeroSection: React.FC = () => {
           mb: "32px",
           fontSize: "19px",
           color: "text.secondary",
+          opacity: descriptionVisible ? 1 : 0,
+          filter: descriptionVisible ? "blur(0px)" : "blur(10px)",
+          transform: descriptionVisible ? "translateY(0)" : "translateY(16px)",
+          transition:
+            "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
         }}
       >
         He design and build digital products that connect clarity with craft &
@@ -38,6 +80,11 @@ const HeroSection: React.FC = () => {
           overflow: "hidden",
           whiteSpace: "nowrap",
           position: "relative",
+          opacity: marqueeVisible ? 1 : 0,
+          filter: marqueeVisible ? "blur(0px)" : "blur(8px)",
+          transform: marqueeVisible ? "translateY(0)" : "translateY(14px)",
+          transition:
+            "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
           "&::before, &::after": {
             content: '""',
             position: "absolute",
@@ -97,7 +144,15 @@ const HeroSection: React.FC = () => {
         appearance="solid"
         height={48}
         borderRadius={24}
-        sx={{ fontSize: "1rem", fontWeight: 600 }}
+        sx={{
+          fontSize: "1rem",
+          fontWeight: 600,
+          opacity: ctaVisible ? 1 : 0,
+          filter: ctaVisible ? "blur(0px)" : "blur(6px)",
+          transform: ctaVisible ? "translateY(0)" : "translateY(12px)",
+          transition:
+            "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
+        }}
       />
     </Box>
   );

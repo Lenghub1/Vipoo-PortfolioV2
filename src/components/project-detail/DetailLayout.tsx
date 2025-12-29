@@ -52,6 +52,58 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
   const heroSrc = bannerSrc ?? project.image;
   const metaItems = meta ?? buildDefaultMeta(project);
   const accentColor = project.color ?? "#0B0C0D";
+  const visibleRelatedProjects = React.useMemo(
+    () => relatedProjects.filter((item) => item.active !== false),
+    [relatedProjects]
+  );
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+  const heroImageRef = React.useRef<HTMLImageElement | null>(null);
+  const [titleVisible, setTitleVisible] = React.useState(false);
+  const [summaryVisible, setSummaryVisible] = React.useState(false);
+  const [qrVisible, setQrVisible] = React.useState(false);
+  const [metaVisible, setMetaVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    setImageLoaded(false);
+    const img = heroImageRef.current;
+    if (!img) {
+      return;
+    }
+    const handleLoad = () => setImageLoaded(true);
+    if (img.complete) {
+      handleLoad();
+      return;
+    }
+    img.addEventListener("load", handleLoad);
+    return () => {
+      img.removeEventListener("load", handleLoad);
+    };
+  }, [heroSrc]);
+
+  React.useEffect(() => {
+    setTitleVisible(false);
+    setSummaryVisible(false);
+    setQrVisible(false);
+    setMetaVisible(false);
+    if (typeof window === "undefined") {
+      setTitleVisible(true);
+      setSummaryVisible(true);
+      setQrVisible(true);
+      setMetaVisible(true);
+      return;
+    }
+    const titleTimer = window.setTimeout(() => setTitleVisible(true), 80);
+    const summaryTimer = window.setTimeout(() => setSummaryVisible(true), 240);
+    const qrTimer = window.setTimeout(() => setQrVisible(true), 400);
+    const metaTimer = window.setTimeout(() => setMetaVisible(true), 440);
+    return () => {
+      window.clearTimeout(titleTimer);
+      window.clearTimeout(summaryTimer);
+      window.clearTimeout(qrTimer);
+      window.clearTimeout(metaTimer);
+    };
+  }, [project.id, isQrcode]);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ position: "relative" }}>
@@ -59,11 +111,14 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           component="img"
           src={heroSrc}
           alt={`${project.title} banner`}
+          ref={heroImageRef}
           sx={{
             width: "100%",
             height: 560,
             objectFit: "cover",
             display: "block",
+            opacity: imageLoaded ? 1 : 0,
+            transition: "opacity 300ms ease",
           }}
         />
         <Box
@@ -113,15 +168,31 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             <Typography
               variant="b1"
               sx={{
+                fontSize: "14px",
                 color: accentColor,
                 textTransform: "uppercase",
                 fontWeight: 700,
+                opacity: summaryVisible ? 1 : 0,
+                filter: summaryVisible ? "blur(0px)" : "blur(10px)",
+                transform: summaryVisible ? "translateY(0)" : "translateY(5px)",
+                transition:
+                  "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
               }}
             >
               Introducing
             </Typography>
 
-            <Typography variant="h1" sx={{ mb: "20px" }}>
+            <Typography
+              variant="h1"
+              sx={{
+                mb: "20px",
+                opacity: titleVisible ? 1 : 0,
+                filter: titleVisible ? "blur(0px)" : "blur(10px)",
+                transform: titleVisible ? "translateY(0)" : "translateY(10px)",
+                transition:
+                  "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
+              }}
+            >
               {project.title}
             </Typography>
 
@@ -130,13 +201,30 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
                 color: "text.secondary",
                 fontSize: "18px",
                 lineHeight: "22px",
+                opacity: summaryVisible ? 1 : 0,
+                filter: summaryVisible ? "blur(0px)" : "blur(10px)",
+                transform: summaryVisible
+                  ? "translateY(0)"
+                  : "translateY(10px)",
+                transition:
+                  "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
               }}
             >
               {project.description}
             </Typography>
           </Box>
 
-          {isQrcode && <QrDownloadCard />}
+          {isQrcode && (
+            <Box
+              sx={{
+                opacity: qrVisible ? 1 : 0,
+                transform: qrVisible ? "translateY(0)" : "translateY(10px)",
+                transition: "opacity 600ms ease, transform 600ms ease",
+              }}
+            >
+              <QrDownloadCard />
+            </Box>
+          )}
         </Box>
 
         {metaItems.length > 0 && (
@@ -151,7 +239,14 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             }}
           >
             {metaItems.map((item) => (
-              <Box key={item.label}>
+              <Box
+                key={item.label}
+                sx={{
+                  opacity: metaVisible ? 1 : 0,
+                  transform: metaVisible ? "translateY(0)" : "translateY(10px)",
+                  transition: "opacity 600ms ease, transform 600ms ease",
+                }}
+              >
                 <Typography sx={{ fontWeight: "500" }}>{item.label}</Typography>
                 <Typography sx={{ color: "text.secondary" }}>
                   {item.value}
@@ -193,21 +288,23 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           />
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-          <Typography variant="t1">View other projects</Typography>
+        {visibleRelatedProjects.length > 0 && (
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+            <Typography variant="t1">View other projects</Typography>
 
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
-              gap: 4,
-            }}
-          >
-            {relatedProjects.map((p) => (
-              <ProjectCard key={p.id} project={p} />
-            ))}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+                gap: 4,
+              }}
+            >
+              {visibleRelatedProjects.map((p) => (
+                <ProjectCard key={p.id} project={p} />
+              ))}
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
     </Box>
   );

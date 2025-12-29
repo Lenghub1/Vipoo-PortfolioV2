@@ -10,18 +10,33 @@ interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = React.useState(false);
+  const isInteractive = project.active !== false;
+  const isCardHovered = isInteractive && isHovered;
+  const baseTextColor = isInteractive ? "text.primary" : "text.secondary";
+  const [isPressed, setIsPressed] = React.useState(false);
 
   return (
     <Box
       component="article"
       onClick={() => {
-        if (project.active === false) return;
+        if (!isInteractive) return;
         navigate(`/project/${project.id}`);
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => {
+        if (!isInteractive) return;
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setIsPressed(false);
+      }}
+      onMouseDown={() => {
+        if (!isInteractive) return;
+        setIsPressed(true);
+      }}
+      onMouseUp={() => setIsPressed(false)}
       sx={{
-        cursor: project.active === false ? "not-allowed" : "pointer",
+        cursor: isInteractive ? "pointer" : "not-allowed",
         overflow: "visible",
       }}
     >
@@ -30,34 +45,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           position: "relative",
           borderRadius: "8px",
           overflow: "hidden",
-          "&::after": {
-            content: '""',
-            position: "absolute",
-            inset: "-12px",
-            borderRadius: "16px",
-            border: "1px solid rgba(255,255,255,0.08)",
-            pointerEvents: "none",
-          },
         }}
       >
-        <Box
-          component="img"
-          src={project.image}
-          alt={project.title}
-          sx={{
-            width: "100%",
-            display: "block",
-            objectFit: "cover",
-            transition: "transform 0.4s cubic-bezier(.215,.61,.355,1)",
-            transform:
-              project.active === false || !isHovered
-                ? "scale(1)"
-                : "scale(1.04)",
-            transformOrigin: "center",
-          }}
-          className="project-card__image"
-          loading="lazy"
-        />
+        <Box sx={{ borderRadius: "inherit", overflow: "hidden" }}>
+          <Box
+            component="img"
+            src={project.image}
+            alt={project.title}
+            sx={{
+              width: "100%",
+              display: "block",
+              objectFit: "cover",
+              transition: "transform 150ms ease",
+              transform:
+                isPressed && isInteractive
+                  ? "scale(0.97)"
+                  : isCardHovered
+                  ? "scale(1.04)"
+                  : "scale(1)",
+              transformOrigin: "center",
+            }}
+            className="project-card__image"
+            loading="lazy"
+          />
+        </Box>
       </Box>
       <Box sx={{ mt: "16px" }}>
         <Box
@@ -68,6 +79,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             mb: "8px",
             flexWrap: "wrap",
             color: "text.secondary",
+            transition: "color 150ms ease",
           }}
         >
           <Typography variant="caption">{project.client}</Typography>
@@ -106,17 +118,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           sx={{
             fontSize: "23px",
             lineHeight: "32px",
-            fontWeight: 600,
-
+            fontWeight: 400,
             mb: "8px",
-            transition: "transform 0.4s cubic-bezier(.215,.61,.355,1)",
-            opacity: project.active === false || !isHovered ? "75%" : "100%",
+            color: baseTextColor,
+            transition:
+              "color 150ms ease, transform 0.4s cubic-bezier(.215,.61,.355,1)",
           }}
         >
           {project.title}
         </Typography>
         <Typography
-          sx={{ fontSize: "14px", lineHeight: "21px", color: "text.secondary" }}
+          sx={{
+            fontSize: "14px",
+            lineHeight: "21px",
+            color: "text.secondary",
+            transition: "color 150ms ease",
+          }}
         >
           {project.description}
         </Typography>

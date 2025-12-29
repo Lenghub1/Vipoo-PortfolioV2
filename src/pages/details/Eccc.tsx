@@ -343,6 +343,11 @@ const Result = () => {
 };
 
 const OtherScreen = () => {
+  const duplicatedScreens = React.useMemo(
+    () => [...other, ...other, ...other, ...other],
+    []
+  );
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "36px" }}>
       <Typography variant="t1">Other screens</Typography>
@@ -360,38 +365,31 @@ const OtherScreen = () => {
             position: "absolute",
             top: 0,
             bottom: 0,
-            width: { xs: "40px", md: "80px" },
+            width: { xs: "0px", md: "80px" },
             zIndex: 1,
             pointerEvents: "none",
           },
-          // "&::before": {
-          //   left: 0,
-          //   background:
-          //     "linear-gradient(90deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
-          // },
-          // "&::after": {
-          //   right: 0,
-          //   background:
-          //     "linear-gradient(270deg, rgba(10,10,10,1) 0%, rgba(10,10,10,0) 100%)",
-          // },
         }}
       >
         <Box
           sx={{
             display: "flex",
+            // flexDirection: { xs: "column", sm: "row" },
+            // animation: { xs: "none", sm: "scrollOther 32s linear infinite" },
+            flexDirection: "row",
+            animation: "scrollOther 32s linear infinite",
             gap: "12px",
             alignItems: "flex-start",
-            animation: "scrollReviews 32s linear infinite",
             willChange: "transform",
-            "@keyframes scrollReviews": {
+            "@keyframes scrollOther": {
               "0%": { transform: "translateX(0)" },
               "100%": { transform: "translateX(-50%)" },
             },
           }}
         >
-          {other.map((item, index) => (
+          {duplicatedScreens.map((item, index) => (
             <Box
-              key={index}
+              key={`${item.title}-${index}`}
               sx={{
                 display: "flex",
                 flexDirection: "column",

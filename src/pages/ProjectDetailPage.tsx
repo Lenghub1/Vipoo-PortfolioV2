@@ -25,7 +25,9 @@ const ProjectDetailPage: React.FC = () => {
     );
   }
 
-  const relatedProjects = projects.filter((p) => p.id !== id).slice(0, 2);
+  const relatedProjects = projects
+    .filter((p) => p.id !== id && p.active !== false)
+    .slice(0, 2);
 
   const componentMap: Record<string, React.FC<DetailComponentProps>> = {
     smartnas: Smartnas,
