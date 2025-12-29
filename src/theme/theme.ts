@@ -4,15 +4,22 @@ declare module "@mui/material/styles" {
   interface TypographyVariants {
     caption1: React.CSSProperties;
     t1: React.CSSProperties;
+    t2: React.CSSProperties;
+    t3: React.CSSProperties;
     b1: React.CSSProperties;
     b2: React.CSSProperties;
+    xs14?: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     caption1?: React.CSSProperties;
     t1?: React.CSSProperties;
+    t2?: React.CSSProperties;
+    t3?: React.CSSProperties;
     b1?: React.CSSProperties;
     b2?: React.CSSProperties;
+
+    xs14?: React.CSSProperties;
   }
 }
 
@@ -20,22 +27,34 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     caption1: true;
     t1: true;
+    t2: true;
+    t3: true;
     b1: true;
     b2: true;
+    xs14: true;
   }
 }
 const serifStack = '"Instrument Serif", "Playfair Display", "Georgia", serif';
 const sansStack = '"Open Runde", "Inter", "Helvetica", sans-serif';
 
 export const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 750,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   palette: {
     mode: "dark",
     primary: {
       main: "#93D4FF",
     },
     background: {
-      default: "#0a0a0a",
-      paper: "#1a1a1a",
+      default: "#0B0C0D",
+      paper: "#0E0E0F",
     },
     text: {
       primary: "#ffffff",
@@ -87,7 +106,23 @@ export const theme = createTheme({
     t1: {
       fontFamily: serifStack,
       fontSize: "28px",
+      lineHeight: "36px",
       color: "#FFFFFF",
+    },
+    t2: {
+      fontFamily: sansStack,
+      fontSize: "20px",
+      fontWeight: 500,
+      color: "text.primary",
+      textAlign: "center",
+      opacity: 0.7,
+    },
+    t3: {
+      fontFamily: serifStack,
+      fontSize: "20px",
+      color: "text.primary",
+      textAlign: "center",
+      opacity: 0.5,
     },
     b1: {
       fontFamily: sansStack,
@@ -102,6 +137,12 @@ export const theme = createTheme({
       lineHeight: "24px",
       color: "#FFFFFF",
       opacity: 0.5,
+    },
+    xs14: {
+      fontFamily: sansStack,
+      fontSize: "14px",
+      lineHeight: "17px",
+      color: "#FFFFFF",
     },
   },
   components: {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { CONTENT_MAX_WIDTH } from "../../theme/layout";
+import { CONTENT_MAX_WIDTH, GLOBAL_PX } from "../../theme/layout";
 
 interface MainContentProps {
   children: React.ReactNode;
@@ -16,7 +16,7 @@ const HomePageLayout: React.FC<MainContentProps> = ({ children }) => {
         mx: "auto",
         minHeight: "100vh",
         pb: "120px",
-        px: { xs: "24px", md: 0 },
+        px: `${GLOBAL_PX}px`,
       }}
     >
       {children}

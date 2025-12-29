@@ -33,11 +33,11 @@ export const projects: Project[] = [
     description:
       "A ground-up redesign, crafted for users of all ages, combining accessibility, personalization, and ergonomic design.",
     image: "/projects/smartnas/smartnas.webp",
-    color: "#1a4d2e",
+    color: "#30D158",
     details: {
-      role: "Lead Designer",
-      team: "Mobile App Team",
-      duration: "4 months",
+      role: "Product Designer",
+      team: "Customer Expecience & Digital Touchpoint",
+      duration: "Dec 2023 - Apr 2025",
       overview:
         "Complete redesign of SmartNas mobile application focusing on user experience and modern design principles.",
       challenge:
@@ -55,11 +55,11 @@ export const projects: Project[] = [
     description:
       "A platform for transparency, public awareness, and historical record of the ECCC's judicial process.",
     image: "/projects/eccc/thumbnail.webp",
-    color: "#1e3a5f",
+    color: "#64C0FE",
     details: {
       role: "Web Designer",
-      team: "Government Projects",
-      duration: "3 months",
+      team: "2 UXUI & 1 Brand Designer",
+      duration: "5 months (Jul-Nov 2023)",
       overview:
         "Official website for the Extraordinary Chambers in the Courts of Cambodia, providing public access to judicial records.",
       challenge:
@@ -77,11 +77,11 @@ export const projects: Project[] = [
     description:
       "System that unifies all merchant profiles such as Bill payment, Mex-map, Silverleaf, & Omnichannel into one streamlined platform.",
     image: "/projects/filelog/filelog.webp",
-    color: "#4a1a4a",
+    color: "#CD39FF",
     details: {
-      role: "UX/UI Designer",
-      team: "Government Digital Services",
-      duration: "5 months",
+      role: "Web Designer & Developer",
+      team: "Only me",
+      duration: "6 Months (Jan-Jun 2023)",
       overview:
         "Centralized file management system for government operations with advanced tracking and collaboration features.",
       challenge:

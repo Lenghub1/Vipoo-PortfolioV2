@@ -72,12 +72,12 @@ const FloatingCTAButton: React.FC<FloatingCTAButtonProps> = ({
       ? {
           bgcolor: "transparent",
           color: "white",
-          border: "1px solid rgba(255,255,255,0.85)",
+          border: "1px solid rgba(255,255,255,0.2)",
         }
       : {
           bgcolor: "#FFFFFF",
           color: "#000000",
-          border: "none",
+          border: "1px solid rgba(255,255,255,1)",
         };
 
   return (
