@@ -100,7 +100,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
           sx={{
             display: "flex",
             gap: "32px",
-            flexDirection: { xs: "column", sm: "row", md: "row" },
+            flexDirection: { xs: "column", sm: "row" },
           }}
         >
           <Box
@@ -120,6 +120,7 @@ const DetailLayout: React.FC<DetailLayoutProps> = ({
             >
               Introducing
             </Typography>
+
             <Typography variant="h1" sx={{ mb: "20px" }}>
               {project.title}
             </Typography>
