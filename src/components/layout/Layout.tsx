@@ -2,7 +2,6 @@ import React from "react";
 import { Box } from "@mui/material";
 import Header from "./Header";
 import Footer from "./Footer";
-import { projects } from "../../data/projects.data";
 import { contacts } from "../../data/contacts.data";
 
 interface LayoutProps {
@@ -17,6 +16,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         bgcolor: "background.default",
         display: "flex",
         flexDirection: "column",
+        position: "relative",
+        zIndex: 1,
       }}
     >
       <Header />
@@ -27,18 +28,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           position: "relative",
           zIndex: 1,
           backgroundColor: "background.default",
-
-          // "&::after": {
-          //   content: '""',
-          //   position: "absolute",
-          //   left: 0,
-          //   right: 0,
-          //   bottom: 0,
-          //   height: "1px",
-          //   backgroundImage:
-          //     "repeating-linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.2) 2px, transparent 2px, transparent 4px)",
-          //   zIndex: 1,
-          // },
+          mb: { xs: "220px", md: "260px" },
+          borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
         {children}

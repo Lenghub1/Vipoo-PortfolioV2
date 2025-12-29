@@ -23,19 +23,25 @@ export const routes: RouteConfig[] = [
   },
 ];
 
-export const navigationLinks = [
+export interface NavigationLink {
+  label: string;
+  sectionId: string;
+  locked?: boolean;
+}
+
+export const navigationLinks: NavigationLink[] = [
   {
     label: "Project",
-    path: "/",
+    sectionId: "projects-section",
   },
   {
     label: "Showcase",
-    path: "/showcase",
-    icon: "/hello/lock.svg",
+    sectionId: "showcase-section",
+    locked: true,
   },
   {
     label: "Blog",
-    path: "/blog",
-    icon: "/hello/lock.svg",
+    sectionId: "blog-section",
+    locked: true,
   },
 ];

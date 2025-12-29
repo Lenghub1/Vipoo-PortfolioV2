@@ -16,13 +16,16 @@ const Footer: React.FC<FooterProps> = ({ contacts }) => {
       component="footer"
       sx={{
         width: "100%",
+        position: "fixed",
+        left: 0,
+        right: 0,
         py: "60px",
         bottom: 0,
         zIndex: 0,
-        borderTop: (theme) => `1px solid ${theme.palette.divider}`,
+        bgcolor: "background.default",
       }}
     >
-      <Container>
+      <Container sx={{ pointerEvents: "auto" }}>
         <Box
           sx={{
             width: "100%",

@@ -5,7 +5,7 @@ import { projects } from "../../data/projects.data";
 
 const ProjectsGrid: React.FC = () => {
   return (
-    <Box component="section" sx={{ mb: "96px" }}>
+    <Box component="section" id="projects-section" sx={{ mb: "96px" }}>
       <Typography variant="h2" sx={{ mb: 6 }}>
         I worked on
       </Typography>

@@ -1,14 +1,18 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navigationLinks } from "../../routes/routes.config";
 import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [heroInView, setHeroInView] = React.useState(false);
   const [hasAnimated, setHasAnimated] = React.useState(false);
+  const [pendingScrollSection, setPendingScrollSection] = React.useState<
+    string | null
+  >(null);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,6 +56,39 @@ const Header: React.FC = () => {
 
     return () => cleanup();
   }, [location.pathname]);
+
+  const scrollToSection = React.useCallback((sectionId: string) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const sectionEl = document.getElementById(sectionId);
+    if (sectionEl) {
+      sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (location.pathname === "/" && pendingScrollSection) {
+      const timeoutId = window.setTimeout(() => {
+        scrollToSection(pendingScrollSection);
+        setPendingScrollSection(null);
+      }, 50);
+      return () => window.clearTimeout(timeoutId);
+    }
+    return undefined;
+  }, [location.pathname, pendingScrollSection, scrollToSection]);
+
+  const handleNavigationClick = React.useCallback(
+    (sectionId: string) => {
+      if (location.pathname !== "/") {
+        setPendingScrollSection(sectionId);
+        navigate("/");
+        return;
+      }
+      scrollToSection(sectionId);
+    },
+    [location.pathname, navigate, scrollToSection]
+  );
 
   return (
     <Box
@@ -120,48 +157,53 @@ const Header: React.FC = () => {
 
         <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 4 }}>
           {navigationLinks.map((link) => {
-            const isActive = location.pathname === link.path;
+            const isLocked = Boolean(link.locked);
+            const isActive = location.pathname === "/" && !isLocked;
 
             return (
-              <Link
-                key={link.path}
-                to={link.path}
-                style={{ textDecoration: "none" }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    color: isActive ? "white" : "text.secondary",
-                    cursor: "pointer",
-                    transition: "color 0.2s ease",
-                    "&:hover": {
-                      color: "white",
-                      "& img": {
-                        opacity: 1,
-                      },
+              <Box
+                key={link.sectionId}
+                component="button"
+                type="button"
+                disabled={isLocked}
+                onClick={() => handleNavigationClick(link.sectionId)}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  color: isActive ? "white" : "text.secondary",
+                  cursor: isLocked ? "not-allowed" : "pointer",
+                  transition: "color 0.2s ease",
+                  background: "none",
+                  border: "none",
+                  p: 0,
+                  font: "inherit",
+                  opacity: isLocked ? 0.6 : 1,
+                  "&:hover": {
+                    color: isLocked ? "text.secondary" : "white",
+                    "& img": {
+                      opacity: 1,
                     },
-                  }}
-                >
-                  <Typography sx={{ fontSize: "13px" }}>
-                    {link.label}
-                  </Typography>
+                  },
+                }}
+              >
+                <Typography sx={{ fontSize: "15px" }}>
+                  {link.label}
+                </Typography>
 
-                  {link.icon && (
-                    <Box
-                      component="img"
-                      src={"/global/lock.svg"}
-                      alt="icon"
-                      sx={{
-                        height: 12.65,
-                        opacity: isActive ? 1 : 0.5,
-                        transition: "opacity 0.2s ease",
-                      }}
-                    />
-                  )}
-                </Box>
-              </Link>
+                {isLocked && (
+                  <Box
+                    component="img"
+                    src="/global/lock.svg"
+                    alt="Locked"
+                    sx={{
+                      height: 12.65,
+                      opacity: isActive ? 1 : 0.5,
+                      transition: "opacity 0.2s ease",
+                    }}
+                  />
+                )}
+              </Box>
             );
           })}
         </Box>
