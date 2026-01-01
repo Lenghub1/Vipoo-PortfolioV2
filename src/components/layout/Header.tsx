@@ -4,6 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navigationLinks } from "../../routes/routes.config";
 import { CONTENT_MAX_WIDTH } from "../../theme/layout";
 import FloatingCTAButton from "../shared/FloatingCTAButton";
+import { contacts as contactLinks } from "../../data/contacts.data";
+
+const primaryEmailContact =
+  contactLinks.find(
+    (contact) => contact.label.toLowerCase() === "email"
+  ) ?? contactLinks[0];
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -225,6 +231,8 @@ const Header: React.FC = () => {
             height={40}
             borderRadius={20}
             paddingX={18}
+            component={primaryEmailContact ? "a" : "button"}
+            href={primaryEmailContact?.href}
             sx={{
               fontSize: "0.9rem",
               fontWeight: 600,

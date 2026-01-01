@@ -337,15 +337,17 @@ export const CustomerTestimonialCard = () => (
         zIndex: 0,
         display: "grid",
         gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-        gap: { xs: 0, md: 4 },
+        gap: { xs: 8, md: 4 },
       }}
     >
       <Box
         sx={{
           position: { xs: "relative", sm: "absolute" },
-          top: { xs: 0, sm: 50 },
+          top: { xs: 40, sm: 75 },
           right: { xs: 0, sm: 70 },
-          scale: { xs: 1, sm: 1.3 },
+          scale: { xs: 1, sm: 1.2 },
+          mx: { xs: "auto", sm: 0 },
+          px: { xs: "24px", sm: 0 },
           justifyContent: { xs: "center", md: "flex-end" },
         }}
       >
@@ -356,7 +358,7 @@ export const CustomerTestimonialCard = () => (
           sx={{
             width: "100%",
             maxWidth: "761px",
-            height: "322px",
+            maxHeight: "322px",
             objectFit: { xs: "contain", sm: "cover" },
             display: "block",
           }}
