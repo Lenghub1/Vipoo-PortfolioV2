@@ -1,9 +1,13 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { clients } from "../../data/projects.data";
+import { contacts as contactLinks } from "../../data/contacts.data";
 import FloatingCTAButton from "../shared/FloatingCTAButton";
 
 const HeroSection: React.FC = () => {
+  const primaryEmailContact =
+    contactLinks.find((contact) => contact.label.toLowerCase() === "email") ??
+    contactLinks[0];
   const duplicatedClients = [...clients, ...clients];
   const [titleVisible, setTitleVisible] = React.useState(false);
   const [descriptionVisible, setDescriptionVisible] = React.useState(false);
@@ -144,14 +148,20 @@ const HeroSection: React.FC = () => {
         appearance="solid"
         height={48}
         borderRadius={24}
+        component={primaryEmailContact ? "a" : "button"}
+        href={primaryEmailContact?.href}
         sx={{
+          width: "fit-content",
           fontSize: "1rem",
           fontWeight: 600,
           opacity: ctaVisible ? 1 : 0,
           filter: ctaVisible ? "blur(0px)" : "blur(6px)",
           transform: ctaVisible ? "translateY(0)" : "translateY(12px)",
           transition:
-            "opacity 600ms ease, filter 600ms ease, transform 600ms ease",
+            "opacity 600ms ease, filter 600ms ease, transform 600ms ease, scale 150ms ease",
+          "&:active": {
+            scale: 0.97,
+          },
         }}
       />
     </Box>

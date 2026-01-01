@@ -14,6 +14,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const isCardHovered = isInteractive && isHovered;
   const baseTextColor = isInteractive ? "text.primary" : "text.secondary";
   const [isPressed, setIsPressed] = React.useState(false);
+  const hasUnlockSoonBadge = project.badge?.toLowerCase() === "unlock soon";
+  const shouldShowDate = Boolean(project.date) && !hasUnlockSoonBadge;
 
   return (
     <Box
@@ -57,6 +59,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               display: "block",
               objectFit: "cover",
               transition: "transform 150ms ease",
+              opacity: hasUnlockSoonBadge ? 0.5 : 1,
               transform:
                 isPressed && isInteractive
                   ? "scale(0.97)"
@@ -83,15 +86,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           }}
         >
           <Typography variant="caption">{project.client}</Typography>
-          <Typography variant="caption" component="span">
-            ·
-          </Typography>
-          <Typography variant="caption">{project.date}</Typography>
-          {project.badge && (
+          {shouldShowDate && (
             <>
               <Typography variant="caption" component="span">
                 ·
               </Typography>
+              <Typography variant="caption">{project.date}</Typography>
+            </>
+          )}
+          {project.badge && (
+            <>
               <Box
                 component="span"
                 sx={{
@@ -118,11 +122,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           sx={{
             fontSize: "23px",
             lineHeight: "32px",
-            fontWeight: 400,
+            fontWeight: isCardHovered ? 500 : 400,
             mb: "8px",
             color: baseTextColor,
             transition:
-              "color 150ms ease, transform 0.4s cubic-bezier(.215,.61,.355,1)",
+              " transform 0.3s cubic-bezier(.215,.61,.355,1), font-weight 0.3s ease",
           }}
         >
           {project.title}

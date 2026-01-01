@@ -5,7 +5,7 @@ export const contacts: Contact[] = [
     value: "vipoopoopoo@gmail.com",
     href: "mailto:vipoopoopoo@gmail.com",
   },
-  { label: "Phone", value: "+855 93 738 714", href: "tel:+85593738714" },
+  { label: "Phone", value: "(+855) 93 738 714", href: "tel:+85593738714" },
   {
     label: "LinkedIn",
     value: "LinkedIn",

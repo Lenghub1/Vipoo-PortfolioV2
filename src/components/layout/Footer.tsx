@@ -84,6 +84,8 @@ const Footer: React.FC<FooterProps> = ({ contacts }) => {
                 <Link
                   key={index}
                   href={contact.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   underline="none"
                   sx={{
                     display: "block",

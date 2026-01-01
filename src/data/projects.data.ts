@@ -8,10 +8,10 @@ export const projects: Project[] = [
     client: "ABA Bank",
     date: "Jan 01, 2026",
     description:
-      "System that unifies all merchant profiles such as Bill payment, Mex-map, Silverleaf, & Omnichannel into one streamlined platform.",
-    image: "/projects/centralize/centralize.webp",
+      "System that unifies all merchant profiles such as Bill payment, Mini-app, Storefront & GiftVoucher into one streamlined platform.",
+    image: "/projects/centralize/thumbnail.webp",
     badge: "UNLOCK SOON",
-    color: "#2a2a2a",
+    color: "#FC6B6A",
     details: {
       role: "Product Designer",
       team: "FTTH & Cloud Service",
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     active: true,
     title: "SmartNas 4.0",
     client: "Smart Axiata",
-    date: "Jan 01, 2026",
+    date: "June 12, 2025",
     description:
       "A ground-up redesign, crafted for users of all ages, combining accessibility, personalization, and ergonomic design.",
     image: "/projects/smartnas/smartnas.webp",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     active: true,
     title: "ECCC Website: Timeless Design",
     client: "Melon Rouge Agency",
-    date: "Jan 01, 2026",
+    date: "May 01, 2024",
     description:
       "A platform for transparency, public awareness, and historical record of the ECCC's judicial process.",
     image: "/projects/eccc/thumbnail.webp",
@@ -73,9 +73,9 @@ export const projects: Project[] = [
     active: true,
     title: "Filelog",
     client: "Ministry of Economy & Finance",
-    date: "Jan 01, 2026",
+    date: "May 27, 2023",
     description:
-      "System that unifies all merchant profiles such as Bill payment, Mex-map, Silverleaf, & Omnichannel into one streamlined platform.",
+      "Centralized file management system for government operations with advanced tracking and collaboration features.",
     image: "/projects/filelog/filelog.webp",
     color: "#CD39FF",
     details: {
